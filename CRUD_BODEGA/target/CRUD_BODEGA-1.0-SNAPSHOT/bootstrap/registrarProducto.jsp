@@ -242,7 +242,7 @@
                                                     <div class="col-md-10 mb-4 ml-5">
                                                         <label for="imagen">Imagen referencial:</label>
                                                         <div class="input-group">
-                                                            <input type="text" name="fileFoto" class="form-control <%=errorImage?"":"is-invalid"%>"
+                                                            <input type="file" name="fileFoto" class="form-control <%=errorImage?"":"is-invalid"%>"
                                                                    id="imagen"
                                                                    placeholder="Recipient's username"
                                                                    aria-label="Recipient's username"

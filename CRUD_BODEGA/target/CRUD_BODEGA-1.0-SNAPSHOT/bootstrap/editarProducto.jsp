@@ -1,5 +1,5 @@
 <%@ page import="Beans.Producto" %>
-<%@ page import="Beans.Bodega"%>
+<%@ page import="Beans.Bodega" %>
 <%--
 
   Created by IntelliJ IDEA.
@@ -10,7 +10,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="producto" scope="request" type="Beans.Producto"/>
-<jsp:useBean id="bodega" scope="request" type="Beans.Bodega" />
+<jsp:useBean id="bodega" scope="request" type="Beans.Bodega"/>
 <%
     boolean verificador3 = request.getAttribute("verificador3") != null ?
             ((boolean) request.getAttribute("verificador3")) : true;
@@ -33,11 +33,12 @@
 
     <!-- Custom fonts for this template-->
     <link href="bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
 
     <!--Custom styles for this template -->
     <link type="text/css" href="../webapp/css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="bootstrap/css/sb-admin-2.min.css"rel="stylesheet" type="text/css"/>
+    <link href="bootstrap/css/sb-admin-2.min.css" rel="stylesheet" type="text/css"/>
 
 
     <!--Custom styles for this page-->
@@ -74,7 +75,8 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=registrar">
+            <a class="nav-link collapsed text-lg-left"
+               href="<%=request.getContextPath()%>/BodegaServlet?action=registrar">
                 <i class="fas fa-plus"></i>
                 <span>Registrar producto</span>
             </a>
@@ -82,7 +84,8 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido">
+            <a class="nav-link collapsed text-lg-left"
+               href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido">
                 <i class="fas fa-eye"></i>
                 <span>Ver pedidos</span>
             </a>
@@ -151,51 +154,72 @@
                 <div class="card-header py-3">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <h4 class="text-danger text-left h4 mb-4 text-black-500 "><%=producto.getNombre()%></h4>
+                            <h4 class="text-danger text-left h4 mb-4 text-black-500 "><%=producto.getNombre()%>
+                            </h4>
 
                             <TABLE class="table">
                                 <TR>
-                                    <TD><b>Descripcion: </b></TD><td colspan=3><%=producto.getDescripcion()%></td>
-                                    <TD ROWSPAN=4 > <img class="img-fluid" src="<%=request.getContextPath()%>/BodegaServlet?action=mostrarIMG&idproducto=<%=producto.getId()%>"
-                                                         width="250" height="250">
+                                    <TD><b>Descripcion: </b></TD>
+                                    <td colspan=3><%=producto.getDescripcion()%>
+                                    </td>
+                                    <TD ROWSPAN=4><img class="img-fluid"
+                                                       src="<%=request.getContextPath()%>/BodegaServlet?action=mostrarIMG&idproducto=<%=producto.getId()%>"
+                                                       width="250" height="250">
                                     </TD>
                                 </TR>
-                                <form id="editar">
-                                <TR>
-                                    <div class="form-group">
-                                    <TD><b>Cantidad: </b></TD> <td><%=producto.getCantidad()+ " uni."%> </td><td> <i class="fas fa-fw fa-arrow-right"></i> </td>
-                                    <td> <input name="unidades" type="text" class="text-center form-control <%=verificador3?"":"is-invalid"%> " placeholder="Unid." <%=request.getParameter("unidades") != null?"value='"+request.getParameter("unidades")+"'":""%> aria-describedby="validationServer04Feedback" required>
-                                        <div id="validationServer04Feedback" class="invalid-feedback">
-                                            Debe ser un número entre 0 y 1000
+                                <form id="editar" method="post">
+                                    <TR>
+                                        <div class="form-group">
+                                            <TD><b>Cantidad: </b></TD>
+                                            <td><%=producto.getCantidad() + " uni."%>
+                                            </td>
+                                            <td><i class="fas fa-fw fa-arrow-right"></i></td>
+                                            <td><input name="unidades" type="text"
+                                                       class="text-center form-control <%=verificador3?"":"is-invalid"%> "
+                                                       placeholder="Unid." <%=request.getParameter("unidades") != null?"value='"+request.getParameter("unidades")+"'":""%>
+                                                       aria-describedby="validationServer04Feedback" required>
+                                                <div id="validationServer04Feedback" class="invalid-feedback">
+                                                    Debe ser un número entre 0 y 1000
+                                                </div>
+                                            </td>
+
                                         </div>
-                                    </td>
+                                    </TR>
+                                    <TR>
+                                        <div class="form-group">
+                                            <TD><b>Precio: </b></TD>
+                                            <td><%="S/. " + producto.getPrecio()%>
+                                            </td>
+                                            <td><i class="fas fa-fw fa-arrow-right"></i></td>
+                                            <td><input name="precio" type="text"
+                                                       class="text-center form-control <%=verificador4?"":"is-invalid"%> "
+                                                       placeholder="Precio"<%=request.getParameter("precio") != null?"value='"+request.getParameter("precio")+"'":""%>
+                                                       aria-describedby="validationServer03Feedback" required>
+                                                <div id="validationServer03Feedback" class="invalid-feedback">
+                                                    Debe ser un número
+                                                </div>
+                                            </td>
 
-                                    </div>
-                                </TR>
-                                <TR>
-                                    <div class="form-group">
-                                <TD><b>Precio: </b></TD><td><%="S/. " + producto.getPrecio()%> </td><td> <i class="fas fa-fw fa-arrow-right"></i> </td>
-                                <td><input name="precio" type="text" class="text-center form-control <%=verificador4?"":"is-invalid"%> " placeholder="Precio"<%=request.getParameter("precio") != null?"value='"+request.getParameter("precio")+"'":""%> aria-describedby="validationServer03Feedback" required>
-                                    <div id="validationServer03Feedback" class="invalid-feedback">
-                                        Debe ser un número
-                                    </div>
-                                </td>
-
-                                    </div>
-                                </TR>
+                                        </div>
+                                    </TR>
                                 </form>
-                                <form id="eliminar" method="POST" action="<%=request.getContextPath()%>/BodegaServlet?action=eliminar&idproducto=<%=producto.getId()%>">
+                                <form id="eliminar" method="POST"
+                                      action="<%=request.getContextPath()%>/BodegaServlet?action=eliminar&idproducto=<%=producto.getId()%>">
 
-                                <tr><td colspan="1"></td>
-                                    <td>
-                                    <a class="btn btn-block btn-success" data-toggle="modal" href="#lModal2" role="button">Actualizar</a>
-                                    <td> <a class="btn btn-block btn-primary" href="<%=request.getContextPath()%>/BodegaServlet" role="button" >Cancelar</a ></td>
-                                    <td> <a class="btn btn-block btn-warning" data-toggle="modal" href="#lModal1" role="button" >Eliminar Producto</a></td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="1"></td>
+                                        <td>
+                                            <a class="btn btn-block btn-success" data-toggle="modal" href="#lModal2"
+                                               role="button">Actualizar</a>
+                                        <td><a class="btn btn-block btn-primary"
+                                               href="<%=request.getContextPath()%>/BodegaServlet"
+                                               role="button">Cancelar</a></td>
+                                        <td><a class="btn btn-block btn-warning" data-toggle="modal" href="#lModal1"
+                                               role="button">Eliminar Producto</a></td>
+                                    </tr>
                                 </form>
 
                             </TABLE>
-
 
 
                         </div>
@@ -214,7 +238,8 @@
         </a>
 
         <!-- Alerta cierre sesion-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -226,14 +251,16 @@
                     <div class="modal-body">Usted esta a punto de salir ¿Desea continuar?</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=login">Cerrar Sesión</a>
+                        <a class="btn btn-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=login">Cerrar
+                            Sesión</a>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Modal1-->
-        <div class="modal fade" id="lModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="lModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -244,13 +271,14 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" form="eliminar" class="btn btn-primary" >Sí</button>
+                        <button type="submit" form="eliminar" class="btn btn-primary">Sí</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Modal2-->
-        <div class="modal fade" id="lModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="lModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -268,22 +296,7 @@
         </div>
 
 
-        <div class="modal fade" id="lModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel4">Está seguro que desea deshacer cambios?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="tables.html">Sí</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <div class="modal fade" id="Credencial" tabindex="-1" role="dialog" aria-labelledby="exampleCredencial"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
