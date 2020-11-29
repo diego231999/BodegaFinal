@@ -147,15 +147,15 @@
         </ul>
 
         </nav>
-        <!-- End of Topbar -->
+        <!-- End of Topbar -->f
 
         <!-- Begin Page Content -->
         <div class='container-fluid'>
             <div class="card shadow mb-4">
-                <div class="p-3  bg-primary text-white" style="text-align:right;">
+                <div class="p-3  bg-primary text-white" style="text-align:center;">
                     <div class="row">
                         <div class="col-sm-4">
-                            <h3 class="h3 font-weight-bold  text-white">LISTA DE PRODUCTOS DISPONIBLES</h3>
+                            <h3 class="h3 font-weight-bold  text-white text-xl-center">LISTA DE PRODUCTOS DISPONIBLES</h3>
                         </div>
                     </div>
                 </div>
