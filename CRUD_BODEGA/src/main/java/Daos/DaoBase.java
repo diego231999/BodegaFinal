@@ -9,7 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DaoBase {
-    String hector;
+
+    String Fabrizio;
 
     public Connection getConection() throws SQLException {
         try {
