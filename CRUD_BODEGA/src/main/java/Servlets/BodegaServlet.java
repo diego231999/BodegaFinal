@@ -192,10 +192,14 @@ public class BodegaServlet extends HttpServlet {
                 }catch (NumberFormatException e){
                     e.getStackTrace();
                 }
-                ArrayList<Producto> listaProductos = dp.obtenerListaProductos(rucBodega, pagina);
+                String text =request.getParameter("nombreBuscar");
+                if(text==null || text.equals("")){
+                    text=null;
+                }
+                ArrayList<Producto> listaProductos = dp.obtenerListaProductos(rucBodega, pagina,text);
+                request.setAttribute("tamanio",t);
                 request.setAttribute("listaProductos", listaProductos);
                 request.setAttribute("bodega", bodega);
-                request.setAttribute("tamanio",t);
                 RequestDispatcher view = request.getRequestDispatcher("/bootstrap/lista_productos.jsp");
                 view.forward(request, response);
                 break;

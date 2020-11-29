@@ -87,16 +87,48 @@ public class DaoProducto {
         return lista.size();
     }
 
-    public ArrayList<Producto> obtenerListaProductos(String ruc, int pagina) {
+    public ArrayList<Producto> obtenerListaProductos(String ruc, int pagina,String txt) {
         ArrayList<Producto> listaProductos = new ArrayList<>();
         String user = "root";
         String pass = "root";
         String url = "jdbc:mysql://127.0.0.1:3306/grupo1_db?serverTimezone=America/Lima";
+        String sql;
+        String sql_bucar="SELECT idProducto,nombreProducto, descripcion,cantidad,precio FROM producto,bodega " +
+                " where bodega.ruc=? and producto.bodega_ruc=? and producto.borrado='0'  and upper(nombreProducto) " +
+                "like upper('%"+txt+"%')  limit " + ((10 * pagina) - 10) + ",10;";
+        String sql_completo="select idProducto,nombreProducto, descripcion,cantidad,precio from bodega,producto where bodega.ruc=?" +
+                " and producto.bodega_ruc=? and producto.borrado='0' limit " + ((10 * pagina ) - 10) + ",10;";
 
+        if (txt==null){
+            sql=sql_completo;
+        }else {
+            sql=sql_bucar;
+        }
         try (Connection conn = DriverManager.getConnection(url, user, pass);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            ResultSet rs;
+            pstmt.setString(1,ruc);
+            pstmt.setString(2,ruc);
+
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Producto p = new Producto();
+                p.setId(rs.getString(1));
+                p.setNombre(rs.getString(2));
+                p.setDescripcion(rs.getString(3));
+                p.setCantidad(rs.getInt(4));
+                p.setPrecio(rs.getDouble(5));
+
+                listaProductos.add(p);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        /*try (Connection conn = DriverManager.getConnection(url, user, pass);
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("select idProducto,nombreProducto, descripcion,cantidad,precio from bodega,producto where bodega.ruc=\"12534467819\"\n" +
-                     "and producto.bodega_ruc=" + ruc + " and producto.borrado='0' limit " + ((10 * pagina) - 10) + ",10;")) {
+             ResultSet rs = stmt.executeQuery(sql)) {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             while (rs.next()) {
@@ -111,7 +143,7 @@ public class DaoProducto {
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        }
+        }*/
         return listaProductos;
     }
 
@@ -282,7 +314,22 @@ public class DaoProducto {
         return bodega;
     }
     public void buscarProducto(String nombre, String ruc){
-        String sql="SELECT * FROM producto where upper(nombreProducto) like upper('%?%') and bodega_ruc='?';";
+        String sql="SELECT * FROM producto where upper(nombreProducto) like upper('%?%_') and bodega_ruc='?';";
+        String user = "root";
+        String pass = "root";
+        String url = "jdbc:mysql://127.0.0.1:3306/grupo1_db?serverTimezone=America/Lima";
+
+        try (Connection conn = DriverManager.getConnection(url, user, pass);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            pstmt.setString(1, nombre);
+            pstmt.setString(2,ruc);
+            pstmt.executeQuery();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
 
     }
     }
