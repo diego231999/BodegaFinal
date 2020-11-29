@@ -70,7 +70,7 @@
                     <a class="nav-link collapsed text-lg-left"
                        href="<%=request.getContextPath()%>/BodegaServlet?action=registrar">
                         <i class="fas fa-plus"></i>
-                        <span>Registro producto</span>
+                        <span>Registrar producto</span>
                     </a>
                 </li>
 
@@ -108,9 +108,6 @@
                         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                             <i class="fa fa-bars"></i>
                         </button>
-
-                        <h2 class="navbar-dark mb-1 text-light"><strong><strong>REGISTRO DE PRODUCTO</strong></strong>
-                        </h2>
 
 
                         <!-- Topbar Navbar -->
@@ -274,7 +271,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a class="btn btn-group-toggle"
+                                                <a class="btn btn-danger mb-3"
                                                    href="<%=request.getContextPath()%>/BodegaServlet"
                                                    role="button">Cancelar</a>
                                                 <div class="modal fade" id="CancelarRegistro" tabindex="-1"
