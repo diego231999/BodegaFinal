@@ -5,7 +5,7 @@ import Beans.Pedido;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DaoPedido {
+public class DaoPedido extends DaoBase{
     public ArrayList<Pedido> obtenerListaPedido(String ruc,int pag) {
         ArrayList<Pedido> listaPedidos = new ArrayList<>();
 
