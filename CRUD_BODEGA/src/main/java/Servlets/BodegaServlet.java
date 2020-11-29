@@ -24,9 +24,6 @@ import java.util.Date;
 @WebServlet(name = "BodegaServlet", urlPatterns = "/BodegaServlet")
 public class BodegaServlet extends HttpServlet {
     Producto p = new Producto();
-    // Hola mundo cruel :C que acaben las clases :C
-    int numero =10;
-    int mi_promedio_campos=16;
     private String rucBodega="12534467813";
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DaoProducto dp = new DaoProducto();
