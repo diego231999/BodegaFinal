@@ -76,7 +76,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=registrar">
                 <i class="fas fa-plus"></i>
-                <span>Registro producto</span>
+                <span>Registrar producto</span>
             </a>
         </li>
 

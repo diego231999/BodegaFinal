@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 @MultipartConfig
-@WebServlet(name = "BodegaServlet", urlPatterns = "/BodegaServlet")
+@WebServlet(name = "BodegaServlet", urlPatterns = {"/BodegaServlet", "/bodega"})
 public class BodegaServlet extends HttpServlet {
     Producto p = new Producto();
     private String rucBodega="12534467813";
@@ -34,14 +34,16 @@ public class BodegaServlet extends HttpServlet {
         int contador = 0;
         int cantidad = 0;
         double precio = 0.0;
-        String nombre = "";
-        String descripcion = "";
+        String nombre = request.getParameter("nombre");
+        String descripcion = request.getParameter("descrip");
         Bodega bodega = dp.DatosBodega(rucBodega);
 
+        boolean formValidNameB= true;
+        boolean formValidNameD= true;
 
         boolean verificador = true;
         boolean verificador2 = true;
-        boolean verificador3=true;
+        boolean verificador3= true;
         boolean verificador4=true;
         //boolean formValidMaxSalary = true;
 
@@ -54,8 +56,32 @@ public class BodegaServlet extends HttpServlet {
 
         switch (action) {
             case "enviar":
-                nombre = request.getParameter("nombre");
-                descripcion = request.getParameter("descrip");
+                /*----------------- Validaciones Nombre Producto--------------------*/
+                // El contador de espacios
+                int cantidadDeEspacios = 0;
+                // Recorremos la cadena:
+                for (int i = 0; i < nombre.length(); i++) {
+                    // Si el carácter en [i] es un espacio (' ') aumentamos el contador
+                    if (nombre.charAt(i) == ' ') cantidadDeEspacios++;
+                }
+                /*Validar Tamaño*/
+                if((nombre.length() > 45) || (nombre.isEmpty()) || (cantidadDeEspacios == nombre.length())){
+                    formValidNameB = false;
+                }
+
+                /*----------------- Validaciones Descripcion--------------------*/
+                // El contador de espacios
+                int cantidadDeEspacios2 = 0;
+                // Recorremos la cadena:
+                for (int i = 0; i < descripcion.length(); i++) {
+                    // Si el carácter en [i] es un espacio (' ') aumentamos el contador
+                    if (descripcion.charAt(i) == ' ') cantidadDeEspacios2++;
+                }
+                /*Validar Tamaño*/
+                if((descripcion.length() > 220) || (descripcion.isEmpty()) || (cantidadDeEspacios2 == descripcion.length())){
+                    formValidNameD = false;
+                }
+
                 Part part=request.getPart("fileFoto");
                 InputStream inputStream=part.getInputStream();
 
@@ -74,11 +100,13 @@ public class BodegaServlet extends HttpServlet {
                     System.out.println("Mal");;
                     verificador2 = false;
                 }
-                if (verificador & verificador2) {
+                if (verificador & verificador2 & formValidNameB & formValidNameD) {
                     contador++;
                     dp.guardarProducto(nombre, descripcion, cantidad, precio, contador,rucBodega,inputStream);
                     response.sendRedirect(request.getContextPath() + "/BodegaServlet");
                 } else {
+                    request.setAttribute("errorNombre", formValidNameB);
+                    request.setAttribute("errorNombreD", formValidNameD);
                     request.setAttribute("verificador", verificador);
                     request.setAttribute("verificador2", verificador2);
                     request.setAttribute("bodega",bodega);
