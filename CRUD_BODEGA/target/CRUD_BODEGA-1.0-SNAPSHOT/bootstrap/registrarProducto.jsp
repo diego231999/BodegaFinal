@@ -7,6 +7,13 @@
 <%
     boolean verificador2 = request.getAttribute("verificador2") != null ?
             ((boolean) request.getAttribute("verificador2")) : true;
+
+    boolean errorNameB = request.getAttribute("errorNombre") != null ?
+            ((boolean) request.getAttribute("errorNombre")) : true;
+
+    boolean errorNameD = request.getAttribute("errorNombreD") != null ?
+            ((boolean) request.getAttribute("errorNombreD")) : true;
+
 %>
 
 
@@ -144,7 +151,7 @@
                         <!-- Page Heading -->
                         <div class="card shadow mb-4">
                             <div class="p-3  bg-primary text-white"
-                                 style="text-align:center;  font: oblique bold 120% cursive;">
+                                 style="text-align:center">
                                 <h3 class="h3 font-weight-bold  text-white text-xl-center">REGISTRAR PRODUCTO</h3>
                             </div>
                             <div class="card-body">
@@ -155,32 +162,41 @@
                                         <!-- formulario -->
                                         <div class="row">
 
-                                            <form method="post"
+                                            <form method="POST"
                                                   action="<%=request.getContextPath()%>/BodegaServlet?action=enviar"
                                                   enctype="multipart/form-data">
-                                                <div class="form-row">
+                                                <div class="form-row justify-content-center">
 
 
-                                                    <div class="col-md-10 mb-3 ml-5">
+                                                    <div class="col-md-5 mb-4 ml-5">
                                                         <label for="nombre">Producto:</label>
-                                                        <input name="nombre" type="text"
-                                                               class="form-control"
-                                                               placeholder="Producto..."
-                                                               id="nombre" <%=request.getParameter("nombre") != null?"value='"+request.getParameter("nombre")+"'":""%>
-                                                               required>
+                                                        <input type="text"
+                                                               class="form-control <%=errorNameB?"":"is-invalid"%>"
+                                                               id="nombre" placeholder="Producto..."
+                                                               name="nombre"  <%=request.getParameter("nombre") != null?"value='"+request.getParameter("nombre")+"'":""%>
+                                                               aria-describedby="validationServer05Feedback">
+                                                        <div id="validationServer05Feedback"
+                                                             class="invalid-feedback">
+                                                            Este campo es obligatorio
+                                                        </div>
                                                     </div>
 
 
-                                                    <div class="col-md-10 mb-3 ml-5">
+                                                    <div class="col-md-5 mb-4">
                                                         <label for="descrip">Descripción:</label>
-                                                        <input name="descrip" type="text" class="form-control"
+                                                        <input name="descrip" type="text"
+                                                               class="form-control <%=errorNameD?"":"is-invalid"%>"
                                                                aria-label="With textarea"
                                                                placeholder="Descripción..."
                                                                id="descrip" <%=request.getParameter("descrip") != null?"value='"+request.getParameter("descrip")+"'":""%>
-                                                               required>
+                                                               aria-describedby="validationServer06Feedback">
+                                                        <div id="validationServer06Feedback"
+                                                             class="invalid-feedback">
+                                                            Este campo es obligatorio
+                                                        </div>
                                                     </div>
 
-                                                    <div class="col-md-10 mb-3 ml-5">
+                                                    <div class="col-md-5 mb-4 ml-5">
                                                         <label for="cant">Cantidad:</label>
                                                         <div class="input-group">
                                                             <input name="cant" type="text"
@@ -189,21 +205,19 @@
                                                                    aria-label="Cantidad..."
                                                                    aria-describedby="basic-addon2"
                                                                    id="cant" <%=request.getParameter("cant") != null?"value='"+request.getParameter("cant")+"'":""%>
-                                                                   aria-label="Precio"
-                                                                   aria-describedby="validationServer04Feedback"
-                                                                   required>
+                                                                   aria-describedby="validationServer04Feedback">
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text"
                                                                       id="basic-addon2">uni.</span>
                                                             </div>
                                                             <div id="validationServer04Feedback"
                                                                  class="invalid-feedback">
-                                                                Numero debe estar entre 0 y 1000
+                                                                Debe ingresarse un número entre 0 y 1000
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-10 mb-3 ml-5">
+                                                    <div class="col-md-5 mb-4">
                                                         <label for="precio">Precio unitario:</label>
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
@@ -213,17 +227,16 @@
                                                                    placeholder="Precio unitario..."
                                                                    class="form-control <%=verificador?"":"is-invalid"%>"
                                                                    aria-label="Precio"<%=request.getParameter("precio") != null?"value='"+request.getParameter("precio")+"'":""%>
-                                                                   aria-describedby="validationServer03Feedback"
-                                                                   required>
+                                                                   aria-describedby="validationServer03Feedback">
                                                             <div id="validationServer03Feedback"
                                                                  class="invalid-feedback">
-                                                                Debe ser un número
+                                                                Debe ingresarse un número
                                                             </div>
                                                         </div>
                                                     </div>
 
 
-                                                    <div class="col-md-10 mb-3 ml-5">
+                                                    <div class="col-md-10 mb-4 ml-5">
                                                         <label for="imagen">Imagen referencial:</label>
                                                         <div class="input-group">
                                                             <input type="file" name="fileFoto" class="form-control"
@@ -236,67 +249,68 @@
                                                         </div>
                                                     </div>
 
-                                                </div>
 
-                                                <button type="submit" class="btn btn-primary mb-3 ml-5"
-                                                        data-toggle="modal"
-                                                        href="<%=request.getContextPath()%>/BodegaServlet?action=search">
-                                                    Registrar
-                                                    producto
-                                                </button>
-                                                <div class="modal fade" id="RegistroExitoso" tabindex="-1"
-                                                     role="dialog"
-                                                     aria-labelledby="exampleModalLabel"
-                                                     aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title text-center"
-                                                                    id="exampleModalRegistro">
-                                                                    Registro
-                                                                    exitoso</h5>
-                                                                <button class="close" type="button"
-                                                                        data-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                    <span aria-hidden="true">×</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">Su producto se ha registrado
-                                                                correctamente
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <a class="btn btn-primary"
-                                                                   href="tables.html">OK</a>
+                                                    <button type="submit"
+                                                            class="btn btn-primary mb-4 mr-2 "
+                                                            data-toggle="modal"
+                                                            href="<%=request.getContextPath()%>/BodegaServlet?action=search">
+                                                        Registrar
+                                                        producto
+                                                    </button>
+                                                    <div class="modal fade" id="RegistroExitoso" tabindex="-1"
+                                                         role="dialog"
+                                                         aria-labelledby="exampleModalLabel"
+                                                         aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title text-center"
+                                                                        id="exampleModalRegistro">
+                                                                        Registro
+                                                                        exitoso</h5>
+                                                                    <button class="close" type="button"
+                                                                            data-dismiss="modal"
+                                                                            aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">Su producto se ha registrado
+                                                                    correctamente
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <a class="btn btn-primary"
+                                                                       href="tables.html">OK</a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <a class="btn btn-danger mb-3"
-                                                   href="<%=request.getContextPath()%>/BodegaServlet"
-                                                   role="button">Cancelar</a>
-                                                <div class="modal fade" id="CancelarRegistro" tabindex="-1"
-                                                     role="dialog"
-                                                     aria-labelledby="exampleModalLabel"
-                                                     aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title text-center"
-                                                                    id="exampleModalCancelarRegistro"
-                                                                    data-dismiss="modal">Cancelar</h5>
-                                                                <button class="close" type="button"
-                                                                        data-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                    <span aria-hidden="true">×</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">¿Desea cancelar el registro?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <a class="btn btn-primary"
-                                                                   href="tables.html">Si</a>
-                                                                <a class="btn btn-group-sm"
-                                                                   href="RegistroProducto.html">No</a>
+                                                    <a class="btn btn-danger mb-4"
+                                                       href="<%=request.getContextPath()%>/BodegaServlet"
+                                                       role="button">Cancelar</a>
+                                                    <div class="modal fade" id="CancelarRegistro" tabindex="-1"
+                                                         role="dialog"
+                                                         aria-labelledby="exampleModalLabel"
+                                                         aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title text-center"
+                                                                        id="exampleModalCancelarRegistro"
+                                                                        data-dismiss="modal">Cancelar</h5>
+                                                                    <button class="close" type="button"
+                                                                            data-dismiss="modal"
+                                                                            aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">¿Desea cancelar el registro?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <a class="btn btn-primary"
+                                                                       href="tables.html">Si</a>
+                                                                    <a class="btn btn-group-sm"
+                                                                       href="RegistroProducto.html">No</a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

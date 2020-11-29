@@ -160,7 +160,7 @@
                                                          width="250" height="250">
                                     </TD>
                                 </TR>
-                                <form id="editar" method="POST" action="<%=request.getContextPath()%>/BodegaServlet?action=editar&idproducto=<%=producto.getId()%>">
+                                <form id="editar">
                                 <TR>
                                     <div class="form-group">
                                     <TD><b>Cantidad: </b></TD> <td><%=producto.getCantidad()+ " uni."%> </td><td> <i class="fas fa-fw fa-arrow-right"></i> </td>
