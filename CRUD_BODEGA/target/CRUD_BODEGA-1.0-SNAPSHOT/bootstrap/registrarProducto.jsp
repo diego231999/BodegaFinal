@@ -14,6 +14,9 @@
     boolean errorNameD = request.getAttribute("errorNombreD") != null ?
             ((boolean) request.getAttribute("errorNombreD")) : true;
 
+    boolean errorImage = request.getAttribute("errorImage") != null ?
+            ((boolean) request.getAttribute("errorImage")) : true;
+
 %>
 
 
@@ -239,11 +242,15 @@
                                                     <div class="col-md-10 mb-4 ml-5">
                                                         <label for="imagen">Imagen referencial:</label>
                                                         <div class="input-group">
-                                                            <input type="file" name="fileFoto" class="form-control"
+                                                            <input type="text" name="fileFoto" class="form-control <%=errorImage?"":"is-invalid"%>"
                                                                    id="imagen"
                                                                    placeholder="Recipient's username"
                                                                    aria-label="Recipient's username"
-                                                                   aria-describedby="basic-addon2">
+                                                                   aria-describedby="validationServer07Feedback">
+                                                            <div id="validationServer07Feedback"
+                                                                 class="invalid-feedback">
+                                                                Debe subir una imagen
+                                                            </div>
                                                             <div class="input-group-append">
                                                             </div>
                                                         </div>

@@ -8,6 +8,7 @@ import Daos.DaoProducto;
 import OtrasFunciones.Validaciones;
 import javafx.animation.ParallelTransition;
 
+import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -40,6 +41,7 @@ public class BodegaServlet extends HttpServlet {
 
         boolean formValidNameB= true;
         boolean formValidNameD= true;
+        boolean formValidImage= true;
 
         boolean verificador = true;
         boolean verificador2 = true;
@@ -83,7 +85,18 @@ public class BodegaServlet extends HttpServlet {
                 }
 
                 Part part=request.getPart("fileFoto");
+
                 InputStream inputStream=part.getInputStream();
+
+                try (InputStream input = part.getInputStream()) {
+                    try {
+                        ImageIO.read(input).toString();
+                        // It's an image (only BMP, GIF, JPG and PNG are recognized).
+                    } catch (Exception e) {
+                        System.out.println("mal");
+                        formValidImage=false;
+                    }
+                }
 
                 try {
 
@@ -100,13 +113,14 @@ public class BodegaServlet extends HttpServlet {
                     System.out.println("Mal");;
                     verificador2 = false;
                 }
-                if (verificador & verificador2 & formValidNameB & formValidNameD) {
+                if (verificador & verificador2 & formValidNameB & formValidNameD & formValidImage) {
                     contador++;
                     dp.guardarProducto(nombre, descripcion, cantidad, precio, contador,rucBodega,inputStream);
                     response.sendRedirect(request.getContextPath() + "/BodegaServlet");
                 } else {
                     request.setAttribute("errorNombre", formValidNameB);
                     request.setAttribute("errorNombreD", formValidNameD);
+                    request.setAttribute("errorImagen", formValidImage);
                     request.setAttribute("verificador", verificador);
                     request.setAttribute("verificador2", verificador2);
                     request.setAttribute("bodega",bodega);
