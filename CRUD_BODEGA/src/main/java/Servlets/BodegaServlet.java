@@ -25,7 +25,7 @@ import java.util.Date;
 public class BodegaServlet extends HttpServlet {
     Producto p = new Producto();
     // Hola mundo cruel :C que acaben las clases :C
-
+    int numero =10;
     private String rucBodega="12534467813";
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DaoProducto dp = new DaoProducto();
