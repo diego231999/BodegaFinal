@@ -9,9 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DaoBase {
-
-    String Fabrizio;
-
     public Connection getConection() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
