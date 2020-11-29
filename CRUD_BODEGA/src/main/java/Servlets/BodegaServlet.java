@@ -1,5 +1,6 @@
 package Servlets;
 
+import Beans.Bodega;
 import Beans.Pedido;
 import Beans.Producto;
 import Daos.DaoPedido;
@@ -162,7 +163,7 @@ public class BodegaServlet extends HttpServlet {
         String codigo_mayor = dp.obtenerMayorCodigo();
         Date ahora = new Date();
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
-        String nombre_bodega=dp.obtenerNombreBodega(rucBodega);
+        Bodega bodega = dp.DatosBodega(rucBodega);
 
         String fecha = formateador.format(ahora);
         String[] parte = fecha.split("-");
@@ -193,13 +194,13 @@ public class BodegaServlet extends HttpServlet {
                 }
                 ArrayList<Producto> listaProductos = dp.obtenerListaProductos(rucBodega, pagina);
                 request.setAttribute("listaProductos", listaProductos);
-                request.setAttribute("nombre_bodega", nombre_bodega);
+                request.setAttribute("bodega", bodega);
                 request.setAttribute("tamanio",t);
                 RequestDispatcher view = request.getRequestDispatcher("/bootstrap/lista_productos.jsp");
                 view.forward(request, response);
                 break;
             case "registrar":
-                request.setAttribute("nombre_bodega", nombre_bodega);
+                request.setAttribute("bodega", bodega);
                 RequestDispatcher view2 = request.getRequestDispatcher("/bootstrap/registrarProducto.jsp");
                 view2.forward(request, response);
 
@@ -209,7 +210,7 @@ public class BodegaServlet extends HttpServlet {
                 String id_producto = request.getParameter("idproducto");
                 p = dp.mostrarProducto(id_producto);
                 if (p.getNombre()!=null){
-                    request.setAttribute("nombre_bodega", nombre_bodega);
+                    request.setAttribute("bodega", bodega);
                     request.setAttribute("producto", p);
                     RequestDispatcher view3 = request.getRequestDispatcher("/bootstrap/editarProducto.jsp");
                     view3.forward(request, response);
@@ -235,7 +236,7 @@ public class BodegaServlet extends HttpServlet {
                     e.getStackTrace();
                 }
                 ArrayList<Pedido> listaPedido = daoPedido.obtenerListaPedido(rucBodega,pag);
-                request.setAttribute("nombre_bodega", nombre_bodega);
+                request.setAttribute("bodega", bodega);
                 request.setAttribute("listar_Pedidos", listaPedido);
                 request.setAttribute("tamanioP",tamañoP);
                 view = request.getRequestDispatcher("/bootstrap/listarPedidosBodega.jsp");
@@ -248,7 +249,7 @@ public class BodegaServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/BodegaServlet?action=verPedido");
                 }
                 else {
-                    request.setAttribute("nombre_bodega", nombre_bodega);
+                    request.setAttribute("bodega", bodega);
                     request.setAttribute("listar_Producto_Pedidos", listaProductoPedido);
                     Pedido pedido = new Pedido();
                     pedido = daoPedido.mostrarPedido(idPedido);

@@ -1,5 +1,6 @@
 package Daos;
 
+import Beans.Bodega;
 import Beans.Producto;
 import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 
@@ -14,8 +15,6 @@ public class DaoProducto {
     public void guardarProducto(String nombre, String descripcion, int cantidad, double precio, int contador, String ruc, InputStream foto) {
         DaoProducto dp = new DaoProducto();
         String codigo_mayor=dp.obtenerMayorCodigo();
-        String xd="123";
-        String xd2="345";
         java.util.Date ahora = new Date();
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -258,8 +257,9 @@ public class DaoProducto {
             e.printStackTrace();
         }
     }
-    public String obtenerNombreBodega(String ruc){
-        String nombre_bodega="";
+
+    public Bodega DatosBodega(String ruc){
+        Bodega bodega =new Bodega();
         try {
             String user = "root";
             String pass = "root";
@@ -269,20 +269,26 @@ public class DaoProducto {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection(url, user, pass);
 
-            String sql = "select nombreBodega from bodega where ruc=?;";
+            String sql = "select * from bodega,distrito where ruc=? and bodega.idDistrito=distrito.idDistrito ;";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, ruc);
             try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    nombre_bodega=rs.getString(1);
+                while (rs.next()) {
+                    bodega.setRuc(rs.getString(1));
+                    bodega.setNombre(rs.getString(2));
+                    bodega.setValoracion(rs.getInt(4));
+                    bodega.setDireccion(rs.getString(5));
+                    bodega.setDistrito(rs.getString(10));
+                    bodega.setCorreo(rs.getString(7));
                 }
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        return nombre_bodega;
+        return bodega;
     }
-    public void buscarBodega(){
+    public void buscarProducto(String nombre, String ruc){
+        String sql="SELECT * FROM producto where upper(nombreProducto) like upper('%?%') and bodega_ruc='?';";
 
     }
 }
