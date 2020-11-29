@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Diego
-  Date: 11/11/2020
-  Time: 11:53
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="bodega" type="Beans.Bodega" scope="request"/>
 <%
@@ -107,14 +100,15 @@
         <div id="content">
 
             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <nav class="navbar navbar-expand navbar-light bg-gradient-primary topbar mb-4 static-top shadow">
+
 
                 <!-- Sidebar Toggle (Topbar) -->
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
 
-                <h2 class="navbar-dark mb-1 text-gray-800"><strong><strong>REGISTRO DE PRODUCTO</strong></strong></h2>
+                <h2 class="navbar-dark mb-1 text-light"><strong><strong>REGISTRO DE PRODUCTO</strong></strong></h2>
 
 
                 <!-- Topbar Navbar -->
@@ -123,8 +117,9 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=bodega.getNombre()%></span>
-                            <i class="fas fa-user-alt"></i>
+                            <div class="sidebar-brand-text mx-3 text-light"><%=bodega.getNombre() %>
+                            </div>
+                            <div class="sidebar-brand-icon text-light"><i class="fas fa-user-alt"></i></div>
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -147,207 +142,234 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container-fluid">
 
+            <div class="card shadow align-content-center">
+                <div class="card-header py-3">
+                    <div class="card-body ">
+                        <div class="table-responsive ">
+                            <form method="post" action="<%=request.getContextPath()%>/BodegaServlet?action=enviar"
+                                  enctype="multipart/form-data">
+                                <div class="container-fluid">
+                                    <div class="form-group ">
+                                        <div class="col-2 mb-3 mb-sm-1">
+                                            <h4 class="h4 mb-3 text-gray-800">Producto :</h4>
+                                        </div>
+
+                                        <div class="col-4 mb-3 mb-sm-1">
+                                            <input name="nombre" type="text" class="form-control form-control"
+                                                   id="exampleProducto"
+                                                   placeholder="Producto..."
+                                                   id="nombre" <%=request.getParameter("nombre") != null?"value='"+request.getParameter("nombre")+"'":""%>
+                                                   required>
+                                        </div>
+                                    </div>
+
+                                    <div class="input">
+                                        <div class="col-2 mb-3 mb-sm-1">
+                                            <h4 class="h4 mb-3 text-gray-800">Descripción :</h4>
+                                        </div>
+                                    </div>
+                                    <div class="input-group col-10 mb-3">
+                                        <input name="descrip" class="col-5 form-control" aria-label="With textarea"
+                                               placeholder="Descripción..."
+                                               id="descrip" <%=request.getParameter("descrip") != null?"value='"+request.getParameter("descrip")+"'":""%>
+                                               required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-2 mb-3 mb-sm-1">
+                                            <h4 class="h4 mb-3 text-gray-800">Cantidad :</h4>
+                                        </div>
+                                    </div>
+                                    <div class="input-group col-3 mb-3">
+                                        <input name="cant" type="number"
+                                               class="form-control <%=verificador2?"":"is-invalid"%>"
+                                               placeholder="Cantidad..."
+                                               aria-label="Cantidad..." aria-describedby="basic-addon2"
+                                               id="cant" <%=request.getParameter("cant") != null?"value='"+request.getParameter("cant")+"'":""%>
+                                               aria-label="Precio" aria-describedby="validationServer04Feedback"
+                                               required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">uni.</span>
+                                        </div>
+                                        <div id="validationServer04Feedback" class="invalid-feedback">
+                                            Numero debe estar entre 0 y 1000
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-2 mb-4 mb-sm-1">
+                                            <h4 class="h4 mb-3 text-gray-800">Precio Unitario :</h4>
+                                        </div>
+                                    </div>
+                                    <div class="input-group mb-4 col-2">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">S/.</span>
+                                        </div>
+                                        <input name="precio" type="text"
+                                               class="form-control <%=verificador?"":"is-invalid"%>"
+                                               aria-label="Precio"<%=request.getParameter("precio") != null?"value='"+request.getParameter("precio")+"'":""%>
+                                               aria-describedby="validationServer03Feedback" required>
+                                        <div id="validationServer03Feedback" class="invalid-feedback">
+                                            Debe ser un número
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-2 mb-5 mb-sm-1">
+                                            <h4 class="h4 mb-3 text-gray-800">Imagen referencial :</h4>
+                                        </div>
+                                    </div>
+                                    <div class="input-group col-6 mb-5">
+                                        <input type="file" name="fileFoto" class="form-control"
+                                               placeholder="Recipient's username"
+                                               aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" data-toggle="modal"
+                                            href="<%=request.getContextPath()%>/BodegaServlet?action=search">Registrar
+                                        producto
+                                    </button>
+                                    <div class="modal fade" id="RegistroExitoso" tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title text-center" id="exampleModalRegistro">
+                                                        Registro
+                                                        exitoso</h5>
+                                                    <button class="close" type="button" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">Su producto se ha registrado correctamente</div>
+                                                <div class="modal-footer">
+                                                    <a class="btn btn-primary" href="tables.html">OK</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a class="btn btn-group-toggle" href="<%=request.getContextPath()%>/BodegaServlet"
+                                       role="button">Cancelar</a>
+                                    <div class="modal fade" id="CancelarRegistro" tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title text-center"
+                                                        id="exampleModalCancelarRegistro"
+                                                        data-dismiss="modal">Cancelar</h5>
+                                                    <button class="close" type="button" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">¿Desea cancelar el registro?</div>
+                                                <div class="modal-footer">
+                                                    <a class="btn btn-primary" href="tables.html">Si</a>
+                                                    <a class="btn btn-group-sm" href="RegistroProducto.html">No</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- /.container-fluid -->
-            <form method="post" action="<%=request.getContextPath()%>/BodegaServlet?action=enviar"
-                  enctype="multipart/form-data">
-                <div class="container-fluid">
-                    <div class="form-group ">
-                        <div class="col-2 mb-3 mb-sm-1">
-                            <h4 class="h4 mb-3 text-gray-800">Producto :</h4>
-                        </div>
+            <!-- End of Main Content -->
 
-                        <div class="col-4 mb-3 mb-sm-1">
-                            <input name="nombre" type="text" class="form-control form-control" id="exampleProducto"
-                                   placeholder="Producto..."
-                                   id="nombre" <%=request.getParameter("nombre") != null?"value='"+request.getParameter("nombre")+"'":""%>
-                                   required>
-                        </div>
-                    </div>
 
-                    <div class="input">
-                        <div class="col-2 mb-3 mb-sm-1">
-                            <h4 class="h4 mb-3 text-gray-800">Descripción :</h4>
-                        </div>
-                    </div>
-                    <div class="input-group col-10 mb-3">
-                        <input name="descrip" class="col-5 form-control" aria-label="With textarea"
-                               placeholder="Descripción..."
-                               id="descrip" <%=request.getParameter("descrip") != null?"value='"+request.getParameter("descrip")+"'":""%>
-                               required>
-                    </div>
+        </div>
+        <!-- End of Content Wrapper -->
 
-                    <div class="form-group">
-                        <div class="col-2 mb-3 mb-sm-1">
-                            <h4 class="h4 mb-3 text-gray-800">Cantidad :</h4>
-                        </div>
-                    </div>
-                    <div class="input-group col-3 mb-3">
-                        <input name="cant" type="number" class="form-control <%=verificador2?"":"is-invalid"%>"
-                               placeholder="Cantidad..."
-                               aria-label="Cantidad..." aria-describedby="basic-addon2"
-                               id="cant" <%=request.getParameter("cant") != null?"value='"+request.getParameter("cant")+"'":""%>
-                               aria-label="Precio" aria-describedby="validationServer04Feedback" required>
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">uni.</span>
-                        </div>
-                        <div id="validationServer04Feedback" class="invalid-feedback">
-                            Numero debe estar entre 0 y 1000
-                        </div>
-                    </div>
+    </div>
+    <!-- End of Page Wrapper -->
 
-                    <div class="form-group">
-                        <div class="col-2 mb-4 mb-sm-1">
-                            <h4 class="h4 mb-3 text-gray-800">Precio Unitario :</h4>
-                        </div>
-                    </div>
-                    <div class="input-group mb-4 col-2">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">S/.</span>
-                        </div>
-                        <input name="precio" type="text" class="form-control <%=verificador?"":"is-invalid"%>"
-                               aria-label="Precio"<%=request.getParameter("precio") != null?"value='"+request.getParameter("precio")+"'":""%>
-                               aria-describedby="validationServer03Feedback" required>
-                        <div id="validationServer03Feedback" class="invalid-feedback">
-                            Debe ser un número
-                        </div>
-                    </div>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-                    <div class="form-group">
-                        <div class="col-2 mb-5 mb-sm-1">
-                            <h4 class="h4 mb-3 text-gray-800">Imagen referencial :</h4>
-                        </div>
-                    </div>
-                    <div class="input-group col-6 mb-5">
-                        <input type="file" name="fileFoto" class="form-control" placeholder="Recipient's username"
-                               aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary" data-toggle="modal"
-                            href="<%=request.getContextPath()%>/BodegaServlet?action=search">Registrar
-                        producto
+    <!-- Logout Modal-->
+    <!-- Alerta cierre sesion-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sesión</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">×</span>
                     </button>
-                    <div class="modal fade" id="RegistroExitoso" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title text-center" id="exampleModalRegistro">Registro
-                                        exitoso</h5>
-                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">Su producto se ha registrado correctamente</div>
-                                <div class="modal-footer">
-                                    <a class="btn btn-primary" href="tables.html">OK</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="btn btn-group-toggle" href="<%=request.getContextPath()%>/BodegaServlet" role="button">Cancelar</a>
-                    <div class="modal fade" id="CancelarRegistro" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title text-center" id="exampleModalCancelarRegistro"
-                                        data-dismiss="modal">Cancelar</h5>
-                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">¿Desea cancelar el registro?</div>
-                                <div class="modal-footer">
-                                    <a class="btn btn-primary" href="tables.html">Si</a>
-                                    <a class="btn btn-group-sm" href="RegistroProducto.html">No</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+                <div class="modal-body">Usted esta a punto de salir ¿Desea continuar?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=login">Cerrar
+                        Sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="Credencial" tabindex="-1" role="dialog" aria-labelledby="exampleCredencial"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-gradient-light static-top shadow text-black">
+                <div class="modal-header bg-gradient-primary mb-4 static-top shadow text-light">
+                    <h5 class="modal-title " id="exampleCredencial">Credenciales de Bodega</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body"><h4>Nombre: </h4><%=bodega.getNombre()%>
 
                 </div>
-            </form>
-        </div>
-        <!-- End of Main Content -->
+                <div class="modal-body"><h4>RUC: </h4><%=bodega.getRuc()%>
 
+                </div>
+                <div class="modal-body"><h4>Correo: </h4><%=bodega.getCorreo()%>
 
-    </div>
-    <!-- End of Content Wrapper -->
+                </div>
+                <div class="modal-body"><h4>Dirección: </h4><%=bodega.getDireccion()%>
 
-</div>
-<!-- End of Page Wrapper -->
+                </div>
+                <div class="modal-body"><h4>Distrito: </h4><%=bodega.getDistrito()%>
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
+                </div>
+                <div class="modal-body"><h4>Valoracion: </h4><%=bodega.getValoracion()%>
 
-<!-- Logout Modal-->
-<!-- Alerta cierre sesion-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Sesión</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Usted esta a punto de salir ¿Desea continuar?</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=login">Cerrar
-                    Sesión</a>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">OK</button>
+                </div>
             </div>
         </div>
     </div>
+
+
+    <script src="bootstrap/vendor/jquery/jquery.min.js"></script>
+    <script src="bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="bootstrap/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="bootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="bootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
 </div>
-<div class="modal fade" id="Credencial" tabindex="-1" role="dialog" aria-labelledby="exampleCredencial"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleCredencial">Credenciales de Bodega</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body"><%="Nombre: "+bodega.getNombre()%></div>
-            <div class="modal-body"><%="RUC: "+bodega.getRuc()%></div>
-            <div class="modal-body"><%="Correo: "+bodega.getCorreo()%></div>
-            <div class="modal-body"><%="Direccion: "+bodega.getDireccion()%></div>
-            <div class="modal-body"><%="Distrito: "+bodega.getDistrito()%></div>
-            <div class="modal-body"><%="Valoracion: "+bodega.getValoracion()%></div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script src="bootstrap/vendor/jquery/jquery.min.js"></script>
-<script src="bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="bootstrap/js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
-<script src="bootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="bootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script src="js/demo/datatables-demo.js"></script>
-
 </body>
 </html>

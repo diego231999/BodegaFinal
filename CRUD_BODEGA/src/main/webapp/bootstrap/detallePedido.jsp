@@ -12,10 +12,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="pedidos"  scope="request" type="Beans.Pedido"/>
-<% double montoTotal=0.00;%>
+<jsp:useBean id="pedidos" scope="request" type="Beans.Pedido"/>
+<% double montoTotal = 0.00;%>
 <%ArrayList<Pedido> listaProductoPedido = (ArrayList<Pedido>) request.getAttribute("listar_Producto_Pedidos");%>
-<%String nombre_bodega=(String)request.getAttribute("nombre_bodega");%>
+<jsp:useBean id="bodega" type="Beans.Bodega" scope="request"/>
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,16 +25,17 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+
     <title>Detalle Pedido</title>
 
-    <!-- Custom fonts for this template-->
     <link href="bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
 
     <!--Custom styles for this template -->
-    <link type="text/css" href="../webapp/css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="bootstrap/css/sb-admin-2.min.css"rel="stylesheet" type="text/css"/>
+    <link type="text/css" href="css/sb-admin-2.min.css" rel="stylesheet">
 
+    <link href="bootstrap/css/sb-admin-2.min.css" rel="stylesheet" type="text/css"/>
 
     <!--Custom styles for this page-->
     <link href="bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -70,7 +71,8 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=registrar">
+            <a class="nav-link collapsed text-lg-left"
+               href="<%=request.getContextPath()%>/BodegaServlet?action=registrar">
                 <i class="fas fa-plus"></i>
                 <span>Registro producto</span>
             </a>
@@ -78,7 +80,8 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido">
+            <a class="nav-link collapsed text-lg-left"
+               href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido">
                 <i class="fas fa-eye"></i>
                 <span>Ver pedidos</span>
             </a>
@@ -102,8 +105,8 @@
         <div id="content">
 
             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <h1 class="text-right h3 mb-1 text-gray-800"><strong><strong>MODIFICAR PRODUCTO</strong></strong></h1>
+            <nav class="navbar navbar-expand navbar-light bg-gradient-primary topbar mb-4 static-top shadow">
+                <h1 class="text-right h3 mb-1 text-light"><strong><strong>MODIFICAR PRODUCTO</strong></strong></h1>
                 <!-- Sidebar Toggle (Topbar) -->
                 <form class="form-inline">
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -115,17 +118,26 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=nombre_bodega%></span>
-                            <i class="fas fa-user-alt"></i>
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="sidebar-brand-text mx-3 text-light"><%=bodega.getNombre() %>
+                            </div>
+                            <div class="sidebar-brand-icon text-light"><i class="fas fa-user-alt"></i></div>
                         </a>
                         <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="#logoutModal" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Cerrar Sesión
                             </a>
+                            <a class="dropdown-item" href="#Credencial" data-toggle="modal" data-target="#Credencial">
+                                <i class="fas fa-check fa-sm fa-fw mr-2 text-gray-500"></i>
+                                Credenciales
+                            </a>
+
                         </div>
+
                     </li>
                 </ul>
 
@@ -133,20 +145,28 @@
 
 
             <!-- Begin Page Content -->
-        <div class="container-fluid content">
-            <!-- DataTales Example -->
+            <div class="container-fluid content">
+                <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <table class="table">
-                            <th><h6 class="m-0 font-weight-bold text-primary"><b>Estado:</b> <%=" "+pedidos.getEstado()%></h6></th>
-                            <th><h6 class="m-0 font-weight-bold text-primary"><b>Cliente:</b> <%=" "+pedidos.getClienteDNI()%></h6></th>
-                            <th><h6 class="m-0 font-weight-bold text-primary"><b>Distrito:</b> <%=" "+pedidos.getNombreDistrito()%></h6></th>
+                            <th><h6 class="m-0 font-weight-bold text-primary">
+                                <b>Estado:</b> <%=" " + pedidos.getEstado()%>
+                            </h6></th>
+                            <th><h6 class="m-0 font-weight-bold text-primary">
+                                <b>Cliente:</b> <%=" " + pedidos.getClienteDNI()%>
+                            </h6></th>
+                            <th><h6 class="m-0 font-weight-bold text-primary">
+                                <b>Distrito:</b> <%=" " + pedidos.getNombreDistrito()%>
+                            </h6></th>
                         </table>
-                        <h6 class="m-0 font-weight-bold text-primary"><b>Productos del pedido: </b><%="  " +" "+ pedidos.getCodigoPedido()%></h6>
+                        <h6 class="m-0 font-weight-bold text-primary"><b>Productos del
+                            pedido: </b><%="  " + " " + pedidos.getCodigoPedido()%>
+                        </h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered"  width="100%" cellspacing="0">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>
@@ -189,65 +209,102 @@
                                 </tr>
 
                                 <%
-                                        montoTotal= montoTotal + productos.getMontoTotal();}
+                                        montoTotal = montoTotal + productos.getMontoTotal();
+                                    }
                                     BigDecimal montofinal = new BigDecimal(montoTotal).setScale(2, RoundingMode.UP);
                                 %>
                                 <tr>
-                                    <td colspan="3" style="text-align:center" bgcolor="#F5F5F5"><b style="color: #2e2f37">Total</b>
+                                    <td colspan="3" style="text-align:center" bgcolor="#F5F5F5"><b
+                                            style="color: #2e2f37">Total</b>
                                     </td>
-                                    <td style="text-align:center" bgcolor="#F5F5F5"><b style="color: #2e2f37"><%="S/. " + montofinal.doubleValue()%></b>
+                                    <td style="text-align:center" bgcolor="#F5F5F5"><b
+                                            style="color: #2e2f37"><%="S/. " + montofinal.doubleValue()%>
+                                    </b>
                                     </td>
                                 </tr>
                                 <table class="table">
-                                    <thead >
+                                    <thead>
                                     <%
                                         Date ahora = new Date();
                                         SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
-                                        boolean bool=false;
-                                        String fechahoy=formateador.format(ahora);
-                                        String [] parte=fechahoy.split("-");
-                                        String fechapedido= pedidos.getFechaEntrega();
+                                        boolean bool = false;
+                                        String fechahoy = formateador.format(ahora);
+                                        String[] parte = fechahoy.split("-");
+                                        String fechapedido = pedidos.getFechaEntrega();
                                         System.out.println(fechapedido);
-                                        String [] parte2=fechapedido.split("-");
-                                        if ((Integer.parseInt(parte[2])>=Integer.parseInt(parte2[0]))&(Integer.parseInt(parte[1])>=Integer.parseInt(parte2[1]))&(Integer.parseInt(parte[0])>Integer.parseInt(parte2[2]))){
-                                            bool=true;}%>
+                                        String[] parte2 = fechapedido.split("-");
+                                        if ((Integer.parseInt(parte[2]) >= Integer.parseInt(parte2[0])) & (Integer.parseInt(parte[1]) >= Integer.parseInt(parte2[1])) & (Integer.parseInt(parte[0]) > Integer.parseInt(parte2[2]))) {
+                                            bool = true;
+                                        }%>
                                     <div style="text-align: center">
-                                        <% if(pedidos.getEstado().equalsIgnoreCase("PENDIENTE")){%>
+                                        <% if (pedidos.getEstado().equalsIgnoreCase("PENDIENTE")) {%>
                                         <div class="btn-group">
-                                            <form id="eliminar" method="POST" action="<%=request.getContextPath()%>/BodegaServlet?action=entregarPedido&idPedido=<%=pedidos.getCodigoPedido()%>">
+                                            <form id="eliminar" method="POST"
+                                                  action="<%=request.getContextPath()%>/BodegaServlet?action=entregarPedido&idPedido=<%=pedidos.getCodigoPedido()%>">
                                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <button type="button" class="btn btn-success"><i class="fas fa-clipboard-check"></i></button>
-                                                    <a class="btn-outline-success" role="button" style="text-decoration: none" data-toggle="modal" href="#Modal-Entregar" role="button" ><button type="submit" class="btn btn-outline-success">Entregar Pedido</button></a>
+                                                    <button type="button" class="btn btn-success"><i
+                                                            class="fas fa-clipboard-check"></i></button>
+                                                    <a class="btn-outline-success" role="button"
+                                                       style="text-decoration: none" data-toggle="modal"
+                                                       href="#Modal-Entregar" role="button">
+                                                        <button type="submit" class="btn btn-outline-success">Entregar
+                                                            Pedido
+                                                        </button>
+                                                    </a>
                                                 </div>
                                             </form>
                                         </div>
-                                        <%if (bool){%>
+                                        <%if (bool) {%>
                                         <div class="btn-group">
-                                            <form id="cancelar" method="POST" action="<%=request.getContextPath()%>/BodegaServlet?action=cancelarPedido&idPedido=<%=pedidos.getCodigoPedido()%>">
+                                            <form id="cancelar" method="POST"
+                                                  action="<%=request.getContextPath()%>/BodegaServlet?action=cancelarPedido&idPedido=<%=pedidos.getCodigoPedido()%>">
                                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <button type="button" class="btn btn-danger"><i class="far fa-file-excel"></i></button>
+                                                    <button type="button" class="btn btn-danger"><i
+                                                            class="far fa-file-excel"></i></button>
                                                     <!--<button type="submit" class="btn btn-outline-danger"><a  class="btn-outline-danger" style="text-decoration: none" data-toggle="modal" href="#Modal-Cancelar-Pedido" role="button" >Cancelar Pedido</a></button>-->
-                                                    <a  class="btn-outline-danger" style="text-decoration: none" data-toggle="modal" href="#Modal-Cancelar-Pedido" role="button" ><button type="submit" class="btn btn-outline-danger">Cancelar Pedido</button></a>
+                                                    <a class="btn-outline-danger" style="text-decoration: none"
+                                                       data-toggle="modal" href="#Modal-Cancelar-Pedido" role="button">
+                                                        <button type="submit" class="btn btn-outline-danger">Cancelar
+                                                            Pedido
+                                                        </button>
+                                                    </a>
                                                 </div>
                                             </form>
                                         </div>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <button type="button" class="btn btn-primary"><i class="far fa-caret-square-left"></i></button>
-                                           <!-- <button type="button" class="btn btn-outline-primary"><a style="text-decoration: none" class="btn-outline-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido" role="button" >Regresar</a></button>-->
-                                            <a style="text-decoration: none" class="btn-outline-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido" role="button" ><button type="button" class="btn btn-outline-primary">Regresar</button></a>
+                                            <button type="button" class="btn btn-primary"><i
+                                                    class="far fa-caret-square-left"></i></button>
+                                            <!-- <button type="button" class="btn btn-outline-primary"><a style="text-decoration: none" class="btn-outline-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido" role="button" >Regresar</a></button>-->
+                                            <a style="text-decoration: none" class="btn-outline-primary"
+                                               href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido"
+                                               role="button">
+                                                <button type="button" class="btn btn-outline-primary">Regresar</button>
+                                            </a>
                                         </div>
-                                        <%}
-                                        else{%>
-
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-primary"><i class="far fa-caret-square-left"></i></button>
-                                        <a style="text-decoration: none" class="btn-outline-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido" role="button" ><button type="button" class="btn btn-outline-primary">Regresar</button></a>
-                                    </div>
-                                        <%}}else{%>
+                                        <%} else {%>
 
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <button type="button" class="btn btn-primary"><i class="far fa-caret-square-left"></i></button>
-                                            <a style="text-decoration: none" class="btn-outline-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido" role="button" ><button type="button" class="btn btn-outline-primary">Regresar</button></a>
+                                            <button type="button" class="btn btn-primary"><i
+                                                    class="far fa-caret-square-left"></i></button>
+                                            <a style="text-decoration: none" class="btn-outline-primary"
+                                               href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido"
+                                               role="button">
+                                                <button type="button" class="btn btn-outline-primary">Regresar</button>
+                                            </a>
+                                        </div>
+                                        <%
+                                            }
+                                        } else {
+                                        %>
+
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <button type="button" class="btn btn-primary"><i
+                                                    class="far fa-caret-square-left"></i></button>
+                                            <a style="text-decoration: none" class="btn-outline-primary"
+                                               href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido"
+                                               role="button">
+                                                <button type="button" class="btn btn-outline-primary">Regresar</button>
+                                            </a>
                                         </div>
                                         <%}%>
                                     </div>
@@ -256,91 +313,129 @@
                                 </tbody>
                             </table>
                         </div>
-                        </div>
-                    </div>
-
-                </div>
-        </div>
-        </div>
-
-
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-
-        <!-- Alerta cierre sesion-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Sesión</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Cerrar">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Usted esta a punto de salir ¿Desea continuar?</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=login">Cerrar Sesión</a>
                     </div>
                 </div>
+
             </div>
         </div>
-
-        <!-- Modal1-->
-        <div class="modal fade" id="Modal-Entregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel2">El pedido será entregado</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" form="eliminar" class="btn btn-primary" >Entregar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal2-->
-                <!-- Modal3-->
-        <div class="modal fade" id="Modal-Cancelar-Pedido" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel4">¿Desea cancelar el pedido?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">No</button>
-                        <button class="btn btn-primary" type="submit" form="cancelar">Sí</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bootstrap core JavaScript-->
-        <script src="bootstrap/vendor/jquery/jquery.min.js"></script>
-        <script src="bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-        <!-- Core plugin JavaScript-->
-        <script src="bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-        <!-- Custom scripts for all pages-->
-        <script src="bootstrap/js/sb-admin-2.min.js"></script>
-
-        <!-- Page level plugins -->
-        <script src="bootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
-        <script src="bootstrServletDiegoap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-        <!-- Page level custom scripts -->
-        <script src="bootstrap/js/demo/datatables-demo.js"></script>
     </div>
+
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Alerta cierre sesion-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sesión</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Usted esta a punto de salir ¿Desea continuar?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=login">Cerrar
+                        Sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal1-->
+    <div class="modal fade" id="Modal-Entregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel2">El pedido será entregado</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" form="eliminar" class="btn btn-primary">Entregar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal2-->
+    <!-- Modal3-->
+    <div class="modal fade" id="Modal-Cancelar-Pedido" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel4">¿Desea cancelar el pedido?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">No</button>
+                    <button class="btn btn-primary" type="submit" form="cancelar">Sí</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="Credencial" tabindex="-1" role="dialog" aria-labelledby="exampleCredencial"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-gradient-light static-top shadow text-black">
+                <div class="modal-header bg-gradient-primary mb-4 static-top shadow text-light">
+                    <h5 class="modal-title " id="exampleCredencial">Credenciales de Bodega</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body"><h4>Nombre: </h4><%=bodega.getNombre()%>
+
+                </div>
+                <div class="modal-body"><h4>RUC: </h4><%=bodega.getRuc()%>
+
+                </div>
+                <div class="modal-body"><h4>Correo: </h4><%=bodega.getCorreo()%>
+
+                </div>
+                <div class="modal-body"><h4>Dirección: </h4><%=bodega.getDireccion()%>
+
+                </div>
+                <div class="modal-body"><h4>Distrito: </h4><%=bodega.getDistrito()%>
+
+                </div>
+                <div class="modal-body"><h4>Valoracion: </h4><%=bodega.getValoracion()%>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+<script src="bootstrap/vendor/jquery/jquery.min.js"></script>
+<script src="bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="bootstrap/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="bootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="bootstrServletDiegoap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="bootstrap/js/demo/datatables-demo.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.3.5/sweetalert2.all.min.js%22%3E"></script>
+
 </body>
 
 </html>
