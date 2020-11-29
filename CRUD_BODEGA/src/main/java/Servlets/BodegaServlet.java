@@ -45,11 +45,7 @@ public class BodegaServlet extends HttpServlet {
         boolean verificador4=true;
         //boolean formValidMaxSalary = true;
 
-        if (action == null) {
-            action = "search";
-        } else {
-            action = (String) request.getParameter("action");
-        }
+        action = request.getParameter("action") == null ? "" : request.getParameter("action");
 
 
         switch (action) {
@@ -155,7 +151,11 @@ public class BodegaServlet extends HttpServlet {
                 daoPedido.cambiarEstadoPedido(idPedido3,estado2);
                 response.sendRedirect(request.getContextPath() + "/BodegaServlet?action=verPedido");
                 break;
+            default:
+                response.sendRedirect(request.getContextPath() + "/BodegaServlet");
+                break;
         }
+
 
     }
 
@@ -176,13 +176,7 @@ public class BodegaServlet extends HttpServlet {
         int anio;
         anio = Integer.parseInt(parte[2]) % 100;
 
-        String action = (String) request.getParameter("action");
-
-        if (action == null) {
-            action = "search";
-        } else {
-            action = (String) request.getParameter("action");
-        }
+        String action = request.getParameter("action") == null ? "buscar" : request.getParameter("action");
         int tamañoP=daoPedido.obtenerTamanioListaPedido(rucBodega);
 
 
@@ -190,7 +184,7 @@ public class BodegaServlet extends HttpServlet {
         int t= dp.obtenerTamanioListaProducto(rucBodega);
 
         switch (action) {
-            case "search":
+            case "buscar":
                 int pagina=1;
                 try {
                     pagina = Integer.parseInt(request.getParameter("pagina"));

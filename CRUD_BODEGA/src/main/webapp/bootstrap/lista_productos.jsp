@@ -106,17 +106,14 @@
             <!-- Topbar -->
 
             <nav class="navbar navbar-expand navbar-light bg-gradient-primary topbar mb-4 static-top shadow">
-                <form class="input-group col-5 mb-3 mb-sm-1">
+                <form class="input-group col-5 mb-3 mb-sm-1" action="<%=request.getContextPath()%>/BodegaServlet?action=buscar">
 
                     <input name="nombreBuscar" type="search" class="form-control" placeholder="Buscar producto..."
                            aria-label="Buscar" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit" name="accion"><i class="fas fa-search fa-sm"></i>
+                        <button class="btn btn-primary"><i class="fas fa-search fa-sm"></i>
                         </button>
-
                     </div>
-
-
                 </form>
 
 
@@ -259,7 +256,7 @@
 
                                 for (int i = 1; i <= tamaño; i++) {%>
                             <li class="page-item"><a class="page-link"
-                                                     href="<%=request.getContextPath()%>/BodegaServlet?action=search&pagina=<%=i%>"><%=i%>
+                                                     href="<%=request.getContextPath()%>/BodegaServlet?action=buscar&pagina=<%=i%>"><%=i%>
                             </a></li>
                             <%
                                 }

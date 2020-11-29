@@ -59,7 +59,7 @@
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
                     <a class="nav-link collapsed text-lg-left"
-                       href="<%=request.getContextPath()%>/BodegaServlet?action=search">
+                       href="<%=request.getContextPath()%>/BodegaServlet">
                         <i class="fas fa-table"></i>
                         <span>Productos</span>
                     </a>
