@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="bodega" type="Beans.Bodega" scope="request"/>
+<jsp:useBean id="bodega" scope="request" type="Beans.Bodega" />
 <%
     boolean verificador = request.getAttribute("verificador") != null ?
             ((boolean) request.getAttribute("verificador")) : true;

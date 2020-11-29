@@ -25,7 +25,7 @@ import java.util.Date;
 @WebServlet(name = "BodegaServlet", urlPatterns = "/BodegaServlet")
 public class BodegaServlet extends HttpServlet {
     Producto p = new Producto();
-    private String rucBodega="12534467812";
+    private String rucBodega="12534467813";
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DaoProducto dp = new DaoProducto();
         DaoPedido daoPedido=new DaoPedido();
@@ -36,6 +36,8 @@ public class BodegaServlet extends HttpServlet {
         double precio = 0.0;
         String nombre = "";
         String descripcion = "";
+        Bodega bodega = dp.DatosBodega(rucBodega);
+
 
         boolean verificador = true;
         boolean verificador2 = true;
@@ -79,6 +81,7 @@ public class BodegaServlet extends HttpServlet {
                 } else {
                     request.setAttribute("verificador", verificador);
                     request.setAttribute("verificador2", verificador2);
+                    request.setAttribute("bodega",bodega);
                     RequestDispatcher dispatcher = request.getRequestDispatcher("bootstrap/registrarProducto.jsp");
                     dispatcher.forward(request, response);
                 }
@@ -111,6 +114,7 @@ public class BodegaServlet extends HttpServlet {
                     request.setAttribute("verificador3", verificador3);
                     request.setAttribute("verificador4", verificador4);
                     request.setAttribute("producto",p);
+                    request.setAttribute("bodega",bodega);
                     RequestDispatcher dispatcher = request.getRequestDispatcher("bootstrap/editarProducto.jsp");
                     dispatcher.forward(request, response);
                 }
@@ -163,6 +167,7 @@ public class BodegaServlet extends HttpServlet {
         String codigo_mayor = dp.obtenerMayorCodigo();
         Date ahora = new Date();
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
+
         Bodega bodega = dp.DatosBodega(rucBodega);
 
         String fecha = formateador.format(ahora);

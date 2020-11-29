@@ -1,4 +1,7 @@
-<%@ page import="Beans.Producto" %><%--
+<%@ page import="Beans.Producto" %>
+<%@ page import="Beans.Bodega"%>
+<%--
+
   Created by IntelliJ IDEA.
   User: Diego
   Date: 11/11/2020
@@ -7,7 +10,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="producto" scope="request" type="Beans.Producto"/>
-<jsp:useBean id="bodega" type="Beans.Bodega" scope="request"/>
+<jsp:useBean id="bodega" scope="request" type="Beans.Bodega" />
 <%
     boolean verificador3 = request.getAttribute("verificador3") != null ?
             ((boolean) request.getAttribute("verificador3")) : true;
