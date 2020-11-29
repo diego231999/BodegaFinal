@@ -144,7 +144,7 @@
                         <!-- Page Heading -->
                         <div class="card shadow mb-4">
                             <div class="p-3  bg-primary text-white"
-                                 style="text-align:center;  font: oblique bold 120% cursive;">
+                                 style="text-align:center">
                                 <h3 class="h3 font-weight-bold  text-white text-xl-center">REGISTRAR PRODUCTO</h3>
                             </div>
                             <div class="card-body">
@@ -158,10 +158,10 @@
                                             <form method="post"
                                                   action="<%=request.getContextPath()%>/BodegaServlet?action=enviar"
                                                   enctype="multipart/form-data">
-                                                <div class="form-row">
+                                                <div class="form-row justify-content-center">
 
 
-                                                    <div class="col-md-10 mb-3 ml-5">
+                                                    <div class="col-md-5 mb-4 ml-5">
                                                         <label for="nombre">Producto:</label>
                                                         <input name="nombre" type="text"
                                                                class="form-control"
@@ -171,7 +171,7 @@
                                                     </div>
 
 
-                                                    <div class="col-md-10 mb-3 ml-5">
+                                                    <div class="col-md-5 mb-4">
                                                         <label for="descrip">Descripción:</label>
                                                         <input name="descrip" type="text" class="form-control"
                                                                aria-label="With textarea"
@@ -180,7 +180,7 @@
                                                                required>
                                                     </div>
 
-                                                    <div class="col-md-10 mb-3 ml-5">
+                                                    <div class="col-md-5 mb-4 ml-5">
                                                         <label for="cant">Cantidad:</label>
                                                         <div class="input-group">
                                                             <input name="cant" type="text"
@@ -203,7 +203,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-10 mb-3 ml-5">
+                                                    <div class="col-md-5 mb-4">
                                                         <label for="precio">Precio unitario:</label>
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
@@ -223,7 +223,7 @@
                                                     </div>
 
 
-                                                    <div class="col-md-10 mb-3 ml-5">
+                                                    <div class="col-md-10 mb-4 ml-5">
                                                         <label for="imagen">Imagen referencial:</label>
                                                         <div class="input-group">
                                                             <input type="file" name="fileFoto" class="form-control"
@@ -236,67 +236,68 @@
                                                         </div>
                                                     </div>
 
-                                                </div>
 
-                                                <button type="submit" class="btn btn-primary mb-3 ml-5"
-                                                        data-toggle="modal"
-                                                        href="<%=request.getContextPath()%>/BodegaServlet?action=search">
-                                                    Registrar
-                                                    producto
-                                                </button>
-                                                <div class="modal fade" id="RegistroExitoso" tabindex="-1"
-                                                     role="dialog"
-                                                     aria-labelledby="exampleModalLabel"
-                                                     aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title text-center"
-                                                                    id="exampleModalRegistro">
-                                                                    Registro
-                                                                    exitoso</h5>
-                                                                <button class="close" type="button"
-                                                                        data-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                    <span aria-hidden="true">×</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">Su producto se ha registrado
-                                                                correctamente
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <a class="btn btn-primary"
-                                                                   href="tables.html">OK</a>
+                                                    <button type="submit"
+                                                            class="btn btn-primary mb-4 mr-2 "
+                                                            data-toggle="modal"
+                                                            href="<%=request.getContextPath()%>/BodegaServlet?action=search">
+                                                        Registrar
+                                                        producto
+                                                    </button>
+                                                    <div class="modal fade" id="RegistroExitoso" tabindex="-1"
+                                                         role="dialog"
+                                                         aria-labelledby="exampleModalLabel"
+                                                         aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title text-center"
+                                                                        id="exampleModalRegistro">
+                                                                        Registro
+                                                                        exitoso</h5>
+                                                                    <button class="close" type="button"
+                                                                            data-dismiss="modal"
+                                                                            aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">Su producto se ha registrado
+                                                                    correctamente
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <a class="btn btn-primary"
+                                                                       href="tables.html">OK</a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <a class="btn btn-danger mb-3"
-                                                   href="<%=request.getContextPath()%>/BodegaServlet"
-                                                   role="button">Cancelar</a>
-                                                <div class="modal fade" id="CancelarRegistro" tabindex="-1"
-                                                     role="dialog"
-                                                     aria-labelledby="exampleModalLabel"
-                                                     aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title text-center"
-                                                                    id="exampleModalCancelarRegistro"
-                                                                    data-dismiss="modal">Cancelar</h5>
-                                                                <button class="close" type="button"
-                                                                        data-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                    <span aria-hidden="true">×</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">¿Desea cancelar el registro?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <a class="btn btn-primary"
-                                                                   href="tables.html">Si</a>
-                                                                <a class="btn btn-group-sm"
-                                                                   href="RegistroProducto.html">No</a>
+                                                    <a class="btn btn-danger mb-4"
+                                                       href="<%=request.getContextPath()%>/BodegaServlet"
+                                                       role="button">Cancelar</a>
+                                                    <div class="modal fade" id="CancelarRegistro" tabindex="-1"
+                                                         role="dialog"
+                                                         aria-labelledby="exampleModalLabel"
+                                                         aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title text-center"
+                                                                        id="exampleModalCancelarRegistro"
+                                                                        data-dismiss="modal">Cancelar</h5>
+                                                                    <button class="close" type="button"
+                                                                            data-dismiss="modal"
+                                                                            aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">¿Desea cancelar el registro?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <a class="btn btn-primary"
+                                                                       href="tables.html">Si</a>
+                                                                    <a class="btn btn-group-sm"
+                                                                       href="RegistroProducto.html">No</a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

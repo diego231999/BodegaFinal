@@ -142,15 +142,12 @@
                     <!-- Begin Page Content -->
                     <div class='container-fluid'>
                         <div class="card shadow mb-4">
-                            <div class="p-3  bg-primary text-white" style="text-align:right;">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <h3 class="h3 font-weight-bold  text-white text-xl-left">LISTA DE PEDIDOS</h3>
-                                    </div>
-                                </div>
+                            <div class="p-3  bg-primary text-white"
+                                 style="text-align:center">
+                                <h3 class="h3 font-weight-bold  text-white text-xl-center">LISTA DE PEDIDOS</h3>
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered" width="100%" cellspacing="0" style="text-align:center">
+                                <table class="table table-bordered mb-0" width="100%" cellspacing="0" style="text-align:center">
                                     <tr>
                                         <th>
                                             <div style=text-align:center>Código Pedido</div>
@@ -268,7 +265,7 @@
 
                                 </table>
                             </div>
-                            <nav  class="ml-4" aria-label="Page navigation example">
+                            <nav  class="ml-4 mb-2" aria-label="Page navigation example">
                                 <ul class="pagination">
                                     <%
                                         int tamaño=(t/2);
