@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DaoProducto {
+public class DaoProducto extends DaoBase{
     public void guardarProducto(String nombre, String descripcion, int cantidad, double precio, int contador, String ruc, InputStream foto) {
         DaoProducto dp = new DaoProducto();
         String codigo_mayor = dp.obtenerMayorCodigo();
@@ -34,15 +34,12 @@ public class DaoProducto {
             codigoProducto = (codigo1 + codigo2);
             System.out.println(codigoProducto);
         }
-        String user = "root";
-        String pass = "root";
-        String url = "jdbc:mysql://127.0.0.1:3306/grupo1_db?serverTimezone=America/Lima";
+
         String sql = "insert into producto(idProducto, nombreProducto,descripcion,bodega_ruc,cantidad,precio,borrado,foto) values(?,?,?,?,?,?,?,?);";
 
-        try (Connection conn = DriverManager.getConnection(url, user, pass);
+        try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
             pstmt.setString(1, codigoProducto);
             pstmt.setString(2, nombre);
             pstmt.setString(3, descripcion);
@@ -54,22 +51,20 @@ public class DaoProducto {
 
             pstmt.executeUpdate();
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public int obtenerTamanioListaProducto(String ruc) {
         ArrayList<Producto> lista = new ArrayList<>();
-        String user = "root";
-        String pass = "root";
-        String url = "jdbc:mysql://127.0.0.1:3306/grupo1_db?serverTimezone=America/Lima";
-        try (Connection conn = DriverManager.getConnection(url, user, pass);
+
+        try (Connection conn = this.getConection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("select idProducto,nombreProducto, descripcion,cantidad,precio from bodega,producto where bodega.ruc=\"12534467819\"\n" +
                      "and producto.bodega_ruc= " + ruc + " and producto.borrado='0'")) {
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
+
             while (rs.next()) {
                 Producto p = new Producto();
                 p.setId(rs.getString(1));
@@ -81,7 +76,7 @@ public class DaoProducto {
                 lista.add(p);
             }
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return lista.size();
@@ -89,9 +84,6 @@ public class DaoProducto {
 
     public ArrayList<Producto> obtenerListaProductos(String ruc, int pagina,String txt) {
         ArrayList<Producto> listaProductos = new ArrayList<>();
-        String user = "root";
-        String pass = "root";
-        String url = "jdbc:mysql://127.0.0.1:3306/grupo1_db?serverTimezone=America/Lima";
         String sql;
         String sql_bucar="SELECT idProducto,nombreProducto, descripcion,cantidad,precio FROM producto,bodega " +
                 " where bodega.ruc=? and producto.bodega_ruc=? and producto.borrado='0'  and upper(nombreProducto) " +
@@ -104,10 +96,10 @@ public class DaoProducto {
         }else {
             sql=sql_bucar;
         }
-        try (Connection conn = DriverManager.getConnection(url, user, pass);
+        try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
+
             ResultSet rs;
             pstmt.setString(1,ruc);
             pstmt.setString(2,ruc);
@@ -123,7 +115,7 @@ public class DaoProducto {
 
                 listaProductos.add(p);
             }
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch ( SQLException e) {
             e.printStackTrace();
         }
         /*try (Connection conn = DriverManager.getConnection(url, user, pass);
@@ -149,14 +141,10 @@ public class DaoProducto {
 
     public Producto mostrarProducto(String idproducto) {
         Producto p = new Producto();
-        String user = "root";
-        String pass = "root";
-        String url = "jdbc:mysql://127.0.0.1:3306/grupo1_db?serverTimezone=America/Lima";
         String sql = "select idProducto,nombreProducto, descripcion,cantidad,precio, foto from producto where idProducto=?;";
 
-        try (Connection conn = DriverManager.getConnection(url, user, pass)) {
+        try (Connection conn = this.getConection()) {
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, idproducto);
             ResultSet rs = pstmt.executeQuery();
@@ -169,7 +157,7 @@ public class DaoProducto {
                 p.setPrecio(rs.getDouble(5));
                 p.setFotoProducto(rs.getBinaryStream(6));
             }
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch ( SQLException e) {
             e.printStackTrace();
         }
         return p;
@@ -181,15 +169,13 @@ public class DaoProducto {
         BufferedInputStream bufferedInputStream = null;
         BufferedOutputStream bufferedOutputStream = null;
         response.setContentType("image/*");
-        String user = "root";
-        String pass = "root";
-        String url = "jdbc:mysql://127.0.0.1:3306/grupo1_db?serverTimezone=America/Lima";
+
         String sql = "select foto from producto where idProducto=" + idProducto;
-        try (Connection conn = DriverManager.getConnection(url, user, pass);
+        try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
+
             outputStream = response.getOutputStream();
 
             if (rs.next()) {
@@ -201,7 +187,7 @@ public class DaoProducto {
             while ((i = bufferedInputStream.read()) != -1) {
                 bufferedOutputStream.write(i);
             }
-        } catch (ClassNotFoundException | SQLException | IOException e) {
+        } catch ( SQLException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -212,18 +198,15 @@ public class DaoProducto {
         Connection conn = null;
         Statement stmt = null;
         try {
-            String user = "root";
-            String pass = "root";
-            String url = "jdbc:mysql://127.0.0.1:3306/grupo1_db?serverTimezone=America/Lima";
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(url, user, pass);
+
+            conn = this.getConection();
             stmt = conn.createStatement();
             rs = stmt.executeQuery("select max(idProducto) from producto");
             if (rs.next()) {
                 var = (rs.getString(1));
             }
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -246,21 +229,19 @@ public class DaoProducto {
 
     public Producto editarProducto(String idproducto, int cantidad, double precio) {
         Producto p = new Producto();
-        String user = "root";
-        String pass = "root";
-        String url = "jdbc:mysql://127.0.0.1:3306/grupo1_db?serverTimezone=America/Lima";
+
         String sql = "update producto set cantidad=? ,precio=? where idProducto=?;";
 
-        try (Connection conn = DriverManager.getConnection(url, user, pass);
+        try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
+
             pstmt.setString(3, idproducto);
             pstmt.setInt(1, cantidad);
             pstmt.setDouble(2, precio);
             pstmt.executeUpdate();
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return p;
@@ -268,18 +249,15 @@ public class DaoProducto {
 
     public void eliminarProducto(String idproducto) {
         Producto p = new Producto();
-        String user = "root";
-        String pass = "root";
-        String url = "jdbc:mysql://127.0.0.1:3306/grupo1_db?serverTimezone=America/Lima";
+
         String sql = "update producto set borrado='1' where idProducto=?;";
-        try (Connection conn = DriverManager.getConnection(url, user, pass);
+        try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
             pstmt.setString(1, idproducto);
             pstmt.executeUpdate();
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -287,13 +265,8 @@ public class DaoProducto {
     public Bodega DatosBodega(String ruc){
         Bodega bodega =new Bodega();
         try {
-            String user = "root";
-            String pass = "root";
-            String url = "jdbc:mysql://127.0.0.1:3306/grupo1_db?serverTimezone=America/Lima";
 
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(url, user, pass);
+            Connection conn = this.getConection();
 
             String sql = "select * from bodega,distrito where ruc=? and bodega.idDistrito=distrito.idDistrito ;";
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -308,26 +281,23 @@ public class DaoProducto {
                     bodega.setCorreo(rs.getString(7));
                 }
             }
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return bodega;
     }
     public void buscarProducto(String nombre, String ruc){
         String sql="SELECT * FROM producto where upper(nombreProducto) like upper('%?%_') and bodega_ruc='?';";
-        String user = "root";
-        String pass = "root";
-        String url = "jdbc:mysql://127.0.0.1:3306/grupo1_db?serverTimezone=America/Lima";
 
-        try (Connection conn = DriverManager.getConnection(url, user, pass);
+        try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
+
             pstmt.setString(1, nombre);
             pstmt.setString(2,ruc);
             pstmt.executeQuery();
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
