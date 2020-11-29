@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 @MultipartConfig
-@WebServlet(name = "BodegaServlet", urlPatterns = "/BodegaServlet")
+@WebServlet(name = "BodegaServlet", urlPatterns = {"/BodegaServlet", "/bodega"})
 public class BodegaServlet extends HttpServlet {
     Producto p = new Producto();
     private String rucBodega="12534467813";

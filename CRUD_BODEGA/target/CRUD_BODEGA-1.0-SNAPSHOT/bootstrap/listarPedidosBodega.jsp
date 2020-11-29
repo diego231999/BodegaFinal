@@ -63,23 +63,19 @@
 
                 <!-- Productos -->
                 <li class="nav-item">
-                    <a class="nav-link text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet">
-                        <i class="fas fa-fw fa-table"></i>
-                        <span>Productos</span></a>
+                    <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet">
+                        <i class="fas fa-table"></i>
+                        <span>Productos</span>
+                    </a>
                 </li>
 
-
-                <!-- Heading
-                <div class="sidebar-heading">
-                  Interface
-                </div>-->
 
                 <!-- Registrar Productos -->
 
                 <li class="nav-item">
-                    <a class="nav-link text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=registrar">
-                        <i class="fas fa-fw fa-plus"></i>
-                        <span>Registrar Producto</span>
+                    <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=registrar">
+                        <i class="fas fa-plus"></i>
+                        <span>Registrar producto</span>
                     </a>
                 </li>
 
@@ -87,9 +83,10 @@
 
                 <!-- Ver Pedidos -->
                 <li class="nav-item">
-                    <a class="nav-link text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido">
-                        <i class="fas fa-fw fa-eye"></i>
-                        <span>Ver Pedidos</span></a>
+                    <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido">
+                        <i class="fas fa-eye"></i>
+                        <span>Ver pedidos</span>
+                    </a>
                 </li>
 
                 <!-- Divider -->
