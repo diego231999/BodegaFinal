@@ -280,4 +280,7 @@ public class DaoProducto {
         }
         return nombre_bodega;
     }
+    public void buscarBodega(){
+
+    }
 }
