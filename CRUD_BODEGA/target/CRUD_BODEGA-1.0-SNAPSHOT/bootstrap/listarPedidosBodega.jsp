@@ -153,7 +153,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                <table class="table table-bordered" width="100%" cellspacing="0" style="text-align:center">
                                     <tr>
                                         <th>
                                             <div style=text-align:center>Código Pedido</div>
@@ -221,7 +221,7 @@
 
                                             <!--Visualizar el detalle del pedido-->
 
-                                            <a href="<%=request.getContextPath()%>/BodegaServlet?action=detallePedido&idPedido=<%=pedidos.getCodigoPedido()%>" class="btn btn-info btn-circle">
+                                            <a href="<%=request.getContextPath()%>/BodegaServlet?action=detallePedido&idPedido=<%=pedidos.getCodigoPedido()%>" class="btn btn-info btn-circle align">
                                                 <i class="fas fa-eye"></i>
                                             </a>
 
@@ -229,14 +229,14 @@
                                         <% if (pedidos.getEstado().equalsIgnoreCase("pendiente")){ %>
                                         <td>
 
-                                            <a href="<%=request.getContextPath()%>/BodegaServlet?action=entregarPedido&idPedido=<%=pedidos.getCodigoPedido()%>" onclick="return confirm('Esta seguro de que desea colocar el pedido en estado Entregado')"  style="color: #dce3f9" class="btn btn-success btn-circle">
+                                            <a href="<%=request.getContextPath()%>/BodegaServlet?action=entregarPedido&idPedido=<%=pedidos.getCodigoPedido()%>" onclick="return confirm('Esta seguro de que desea colocar el pedido en estado Entregado')"  style="color: #dce3f9" class="btn btn-success btn-circle align">
                                                 <i class="fas fa-check"></i>
                                             </a>
                                         </td>
                                         <% if (bool) {%>
                                         <td>
                                             <input type="hidden" id="codPedido" value="<%=pedidos.getCodigoPedido()%>">
-                                            <a id="btnCancelar" href="<%=request.getContextPath()%>/BodegaServlet?action=cancelarPedido&idPedido=<%=pedidos.getCodigoPedido()%>" onclick="return confirm('Esta seguro de que desea colocar el pedido en estado Cancelado')" class="btn btn-danger btn-circle">
+                                            <a id="btnCancelar" href="<%=request.getContextPath()%>/BodegaServlet?action=cancelarPedido&idPedido=<%=pedidos.getCodigoPedido()%>" onclick="return confirm('Esta seguro de que desea colocar el pedido en estado Cancelado')" class="btn btn-danger btn-circle align">
                                                 <i class="fas fa-times"></i>
                                             </a>
                                         </td>
