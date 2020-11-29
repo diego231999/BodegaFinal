@@ -12,11 +12,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="bodega" type="Beans.Bodega" scope="request"/>
 <%
     ArrayList<Pedido> listaPedido = (ArrayList<Pedido>) request.getAttribute("listar_Pedidos");
     int t=(int)request.getAttribute("tamanioP");
 %>
-<%String nombre_bodega=(String)request.getAttribute("nombre_bodega");%>
+
 
 <!doctype html>
 <html lang="en">
@@ -109,23 +110,18 @@
                 <div id="content">
 
                     <!-- Topbar -->
-                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <nav class="navbar navbar-expand navbar-light bg-gradient-primary topbar mb-4 static-top shadow">
 
-                        <!-- Sidebar Toggle (Topbar) -->
-                        <form class="form-inline">
-                            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                        </form>
 
-                        <!-- Topbar Navbar -->
+                    <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=nombre_bodega%></span>
-                                    <i class="fas fa-user-alt"></i>
+                                    <div class="sidebar-brand-text mx-3 text-light"><%=bodega.getNombre() %>
+                                    </div>
+                                    <div class="sidebar-brand-icon text-light"><i class="fas fa-user-alt"></i></div>
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -134,12 +130,17 @@
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Cerrar Sesión
                                     </a>
+                                    <a class="dropdown-item" href="#Credencial" data-toggle="modal" data-target="#Credencial">
+                                        <i class="fas fa-check fa-sm fa-fw mr-2 text-gray-500"></i>
+                                        Credenciales
+                                    </a>
+
                                 </div>
+
                             </li>
                         </ul>
 
                     </nav>
-                    <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
                     <div class='container-fluid'>
@@ -314,6 +315,40 @@
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                             <a class="btn btn-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=login">Cerrar Sesión</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="Credencial" tabindex="-1" role="dialog" aria-labelledby="exampleCredencial"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content bg-gradient-light static-top shadow text-black">
+                        <div class="modal-header bg-gradient-primary mb-4 static-top shadow text-light">
+                            <h5 class="modal-title " id="exampleCredencial">Credenciales de Bodega</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Cerrar">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body"><h4>Nombre: </h4><%=bodega.getNombre()%>
+
+                        </div>
+                        <div class="modal-body"><h4>RUC: </h4><%=bodega.getRuc()%>
+
+                        </div>
+                        <div class="modal-body"><h4>Correo: </h4><%=bodega.getCorreo()%>
+
+                        </div>
+                        <div class="modal-body"><h4>Dirección: </h4><%=bodega.getDireccion()%>
+
+                        </div>
+                        <div class="modal-body"><h4>Distrito: </h4><%=bodega.getDistrito()%>
+
+                        </div>
+                        <div class="modal-body"><h4>Valoracion: </h4><%=bodega.getValoracion()%>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">OK</button>
                         </div>
                     </div>
                 </div>
