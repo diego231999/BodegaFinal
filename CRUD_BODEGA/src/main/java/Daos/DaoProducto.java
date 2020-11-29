@@ -14,6 +14,8 @@ public class DaoProducto {
     public void guardarProducto(String nombre, String descripcion, int cantidad, double precio, int contador, String ruc, InputStream foto) {
         DaoProducto dp = new DaoProducto();
         String codigo_mayor=dp.obtenerMayorCodigo();
+        String xd="123";
+        String xd2="345";
         java.util.Date ahora = new Date();
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
 
