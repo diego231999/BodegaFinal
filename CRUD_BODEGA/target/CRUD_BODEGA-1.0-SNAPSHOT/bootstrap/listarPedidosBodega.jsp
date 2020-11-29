@@ -63,19 +63,23 @@
 
                 <!-- Productos -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet">
-                        <i class="fas fa-table"></i>
-                        <span>Productos</span>
-                    </a>
+                    <a class="nav-link text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Productos</span></a>
                 </li>
 
+
+                <!-- Heading
+                <div class="sidebar-heading">
+                  Interface
+                </div>-->
 
                 <!-- Registrar Productos -->
 
                 <li class="nav-item">
-                    <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=registrar">
-                        <i class="fas fa-plus"></i>
-                        <span>Registrar producto</span>
+                    <a class="nav-link text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=registrar">
+                        <i class="fas fa-fw fa-plus"></i>
+                        <span>Registrar Producto</span>
                     </a>
                 </li>
 
@@ -83,10 +87,9 @@
 
                 <!-- Ver Pedidos -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido">
-                        <i class="fas fa-eye"></i>
-                        <span>Ver pedidos</span>
-                    </a>
+                    <a class="nav-link text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido">
+                        <i class="fas fa-fw fa-eye"></i>
+                        <span>Ver Pedidos</span></a>
                 </li>
 
                 <!-- Divider -->
@@ -142,12 +145,15 @@
                     <!-- Begin Page Content -->
                     <div class='container-fluid'>
                         <div class="card shadow mb-4">
-                            <div class="p-3  bg-primary text-white"
-                                 style="text-align:center">
-                                <h3 class="h3 font-weight-bold  text-white text-xl-center">LISTA DE PEDIDOS</h3>
+                            <div class="p-3  bg-primary text-white" style="text-align:right;">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <h3 class="h3 font-weight-bold  text-white text-xl-left">LISTA DE PEDIDOS</h3>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered mb-0" width="100%" cellspacing="0" style="text-align:center">
+                                <table class="table table-bordered" width="100%" cellspacing="0" style="text-align:center">
                                     <tr>
                                         <th>
                                             <div style=text-align:center>Código Pedido</div>
@@ -265,7 +271,7 @@
 
                                 </table>
                             </div>
-                            <nav  class="ml-4 mb-2" aria-label="Page navigation example">
+                            <nav  class="ml-4" aria-label="Page navigation example">
                                 <ul class="pagination">
                                     <%
                                         int tamaño=(t/2);

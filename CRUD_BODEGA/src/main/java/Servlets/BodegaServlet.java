@@ -229,7 +229,7 @@ public class BodegaServlet extends HttpServlet {
 
 
 
-        int t= dp.obtenerTamanioListaProducto(rucBodega);
+        int t= dp.obtenerTamanioListaProducto(rucBodega,null);
 
         switch (action) {
             case "search":
@@ -240,13 +240,29 @@ public class BodegaServlet extends HttpServlet {
                     e.getStackTrace();
                 }
                 String text =request.getParameter("nombreBuscar");
+                System.out.println(text);
                 if(text==null || text.equals("")){
                     text=null;
                 }
-                ArrayList<Producto> listaProductos = dp.obtenerListaProductos(rucBodega, pagina,text);
-                request.setAttribute("tamanio",t);
-                request.setAttribute("listaProductos", listaProductos);
+
+
+                int t2=dp.obtenerTamanioListaProducto(rucBodega,text);
+                ArrayList<Producto> listaProductos;
+                if(text==null){
+                    listaProductos = dp.obtenerListaProductos(rucBodega, pagina);
+                    request.setAttribute("listaProductos", listaProductos);
+                    request.setAttribute("tamanio",t);
+
+                }
+                else {
+                    listaProductos = dp.buscarProducto(text,pagina,rucBodega);
+                    request.setAttribute("listaProductos", listaProductos);
+                    request.setAttribute("tamanio",t2);
+                    System.out.println(t2);
+                }
+
                 request.setAttribute("bodega", bodega);
+                request.setAttribute("palabra", text);
                 RequestDispatcher view = request.getRequestDispatcher("/bootstrap/lista_productos.jsp");
                 view.forward(request, response);
                 break;
