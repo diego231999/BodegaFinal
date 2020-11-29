@@ -56,14 +56,37 @@ public class DaoProducto extends DaoBase{
         }
     }
 
-    public int obtenerTamanioListaProducto(String ruc) {
+    public int obtenerTamanioListaProducto(String ruc,String text) {
         ArrayList<Producto> lista = new ArrayList<>();
+        String sql1 = "SELECT idProducto,nombreProducto, descripcion,cantidad,precio FROM producto,bodega " +
+                " where bodega.ruc=? and producto.bodega_ruc=? and producto.borrado='0'  and upper(nombreProducto) " +
+                "like upper(?)";
+        String sql2="select idProducto,nombreProducto, descripcion,cantidad,precio from bodega,producto where bodega.ruc=?" +
+                "and producto.bodega_ruc= ? and producto.borrado='0'";
+        String sql;
 
+        if(text==null){
+            sql=sql2;
+
+        }else {
+            sql=sql1;
+
+        }
         try (Connection conn = this.getConection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("select idProducto,nombreProducto, descripcion,cantidad,precio from bodega,producto where bodega.ruc=\"12534467819\"\n" +
-                     "and producto.bodega_ruc= " + ruc + " and producto.borrado='0'")) {
-
+             PreparedStatement pstmt = conn.prepareStatement(sql);)
+              {
+                  ResultSet rs;
+                  if (sql==sql1){
+                      pstmt.setString(3,"%"+text+"%");
+                      pstmt.setString(1,ruc);
+                      pstmt.setString(2,ruc);
+                      pstmt.executeQuery();
+                      rs= pstmt.executeQuery();}
+                  else {
+                      pstmt.setString(1,ruc);
+                      pstmt.setString(2,ruc);
+                      rs = pstmt.executeQuery();
+                  }
 
             while (rs.next()) {
                 Producto p = new Producto();
@@ -82,29 +105,21 @@ public class DaoProducto extends DaoBase{
         return lista.size();
     }
 
-    public ArrayList<Producto> obtenerListaProductos(String ruc, int pagina,String txt) {
+    public ArrayList<Producto> obtenerListaProductos(String ruc, int pagina) {
         ArrayList<Producto> listaProductos = new ArrayList<>();
-        String sql;
-        String sql_bucar="SELECT idProducto,nombreProducto, descripcion,cantidad,precio FROM producto,bodega " +
-                " where bodega.ruc=? and producto.bodega_ruc=? and producto.borrado='0'  and upper(nombreProducto) " +
-                "like upper('%"+txt+"%')  limit " + ((10 * pagina) - 10) + ",10;";
-        String sql_completo="select idProducto,nombreProducto, descripcion,cantidad,precio from bodega,producto where bodega.ruc=?" +
+
+        String sql="select idProducto,nombreProducto, descripcion,cantidad,precio from bodega,producto where bodega.ruc=?" +
                 " and producto.bodega_ruc=? and producto.borrado='0' limit " + ((10 * pagina ) - 10) + ",10;";
 
-        if (txt==null){
-            sql=sql_completo;
-        }else {
-            sql=sql_bucar;
-        }
+
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 
-            ResultSet rs;
             pstmt.setString(1,ruc);
             pstmt.setString(2,ruc);
 
-            rs = pstmt.executeQuery();
+            ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 Producto p = new Producto();
                 p.setId(rs.getString(1));
@@ -286,20 +301,35 @@ public class DaoProducto extends DaoBase{
         }
         return bodega;
     }
-    public void buscarProducto(String nombre, String ruc){
-        String sql="SELECT * FROM producto where upper(nombreProducto) like upper('%?%_') and bodega_ruc='?';";
-
+    public ArrayList<Producto> buscarProducto(String buscar, int pagina,String ruc){
+        ArrayList<Producto> productos = new ArrayList<>();
+        String sql="SELECT idProducto,nombreProducto, descripcion,cantidad,precio FROM producto,bodega " +
+            " where bodega.ruc=? and producto.bodega_ruc=? and producto.borrado='0'  and upper(nombreProducto) " +
+            "like upper(?)  limit " + ((10 * pagina) - 10) + ",10;";
+        System.out.println(sql);
+        //String sql="SELECT idProducto,nombreProducto, descripcion,cantidad,precio FROM producto where upper(nombreProducto) like upper(?) and bodega_ruc=? and producto.borrado='0'";
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-
-            pstmt.setString(1, nombre);
+            pstmt.setString(1,ruc);
             pstmt.setString(2,ruc);
+            pstmt.setString(3,"%"+buscar+"%");
             pstmt.executeQuery();
+            System.out.println(buscar);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Producto p = new Producto();
+                p.setId(rs.getString(1));
+                p.setNombre(rs.getString(2));
+                p.setDescripcion(rs.getString(3));
+                p.setCantidad(rs.getInt(4));
+                p.setPrecio(rs.getDouble(5));
 
-        } catch (SQLException e) {
+                productos.add(p);
+            }
+        } catch ( SQLException e) {
             e.printStackTrace();
         }
-
+        return productos;
     }
     }
