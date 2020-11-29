@@ -47,7 +47,11 @@ public class BodegaServlet extends HttpServlet {
         boolean verificador4=true;
         //boolean formValidMaxSalary = true;
 
-        action = request.getParameter("action") == null ? "" : request.getParameter("action");
+        if (action == null) {
+            action = "search";
+        } else {
+            action = (String) request.getParameter("action");
+        }
 
 
         switch (action) {
@@ -112,6 +116,8 @@ public class BodegaServlet extends HttpServlet {
                 break;
             case "editar":
                 String id = request.getParameter("idproducto");
+                System.out.println("---------------");
+                System.out.println(id);
 
                 int cantidad2=0;
                 double precio2=0;
@@ -130,6 +136,8 @@ public class BodegaServlet extends HttpServlet {
                 }catch (NumberFormatException e2){
                     verificador3=false;
                 }
+                System.out.println(precio2);
+                System.out.println(cantidad2);
                 if (verificador3 & verificador4) {
                     //contador++;
                     dp.editarProducto(id, cantidad2,precio2);
@@ -179,9 +187,6 @@ public class BodegaServlet extends HttpServlet {
                 daoPedido.cambiarEstadoPedido(idPedido3,estado2);
                 response.sendRedirect(request.getContextPath() + "/BodegaServlet?action=verPedido");
                 break;
-            default:
-                response.sendRedirect(request.getContextPath() + "/BodegaServlet");
-                break;
         }
 
 
@@ -204,7 +209,7 @@ public class BodegaServlet extends HttpServlet {
         int anio;
         anio = Integer.parseInt(parte[2]) % 100;
 
-        String action = request.getParameter("action") == null ? "buscar" : request.getParameter("action");
+        String action = request.getParameter("action") == null ? "search" : request.getParameter("action");
         int tamañoP=daoPedido.obtenerTamanioListaPedido(rucBodega);
 
 
@@ -212,7 +217,7 @@ public class BodegaServlet extends HttpServlet {
         int t= dp.obtenerTamanioListaProducto(rucBodega,null);
 
         switch (action) {
-            case "buscar":
+            case "search":
                 int pagina=1;
                 try {
                     pagina = Integer.parseInt(request.getParameter("pagina"));
@@ -253,14 +258,16 @@ public class BodegaServlet extends HttpServlet {
 
                 break;
             case "editar_temp":
-
                 String id_producto = request.getParameter("idproducto");
+                System.out.println(id_producto);
                 p = dp.mostrarProducto(id_producto);
+                System.out.println(p.getNombre());
                 if (p.getNombre()!=null){
                     request.setAttribute("bodega", bodega);
                     request.setAttribute("producto", p);
                     RequestDispatcher view3 = request.getRequestDispatcher("/bootstrap/editarProducto.jsp");
                     view3.forward(request, response);
+                    System.out.println("todo bien xd");
                 }
                 else{
                     response.sendRedirect(request.getContextPath() + "/BodegaServlet");
