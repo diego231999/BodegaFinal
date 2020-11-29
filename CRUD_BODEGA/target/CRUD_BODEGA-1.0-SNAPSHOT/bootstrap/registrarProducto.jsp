@@ -6,15 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="bodega" type="Beans.Bodega" scope="request"/>
 <%
-boolean verificador = request.getAttribute("verificador") != null ?
-((boolean) request.getAttribute("verificador")) : true;
+    boolean verificador = request.getAttribute("verificador") != null ?
+            ((boolean) request.getAttribute("verificador")) : true;
 %>
 <%
     boolean verificador2 = request.getAttribute("verificador2") != null ?
             ((boolean) request.getAttribute("verificador2")) : true;
 %>
-<%String nombre_bodega=(String)request.getAttribute("nombre_bodega");%>
+
 
 <!doctype html>
 <html lang="en">
@@ -30,11 +31,12 @@ boolean verificador = request.getAttribute("verificador") != null ?
     <!-- Custom fonts for this template-->
     <!-- Custom fonts for this template-->
     <link href="bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
 
     <!--Custom styles for this template -->
     <link type="text/css" href="../webapp/css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="bootstrap/css/sb-admin-2.min.css"rel="stylesheet" type="text/css"/>
+    <link href="bootstrap/css/sb-admin-2.min.css" rel="stylesheet" type="text/css"/>
 
 
     <!--Custom styles for this page-->
@@ -71,7 +73,8 @@ boolean verificador = request.getAttribute("verificador") != null ?
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=registrar">
+            <a class="nav-link collapsed text-lg-left"
+               href="<%=request.getContextPath()%>/BodegaServlet?action=registrar">
                 <i class="fas fa-plus"></i>
                 <span>Registro producto</span>
             </a>
@@ -79,7 +82,8 @@ boolean verificador = request.getAttribute("verificador") != null ?
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido">
+            <a class="nav-link collapsed text-lg-left"
+               href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido">
                 <i class="fas fa-eye"></i>
                 <span>Ver pedidos</span>
             </a>
@@ -115,52 +119,28 @@ boolean verificador = request.getAttribute("verificador") != null ?
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
-
-
-
-                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                    <li class="nav-item dropdown no-arrow d-sm-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <!-- Dropdown - Messages -->
-                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                             aria-labelledby="searchDropdown">
-                            <form class="form-inline mr-auto w-100 navbar-search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small"
-                                           placeholder="Buscar..." aria-label="Buscar"
-                                           aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
-                                            <i class="fas fa-search fa-sm"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
-
-
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=nombre_bodega%></span>
-                            <img class="img-profile rounded-circle"
-                                 src="https://www.ver.bo/wp-content/uploads/2019/01/4b463f287cd814216b7e7b2e52e82687.png_1805022883.png">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=bodega.getNombre()%></span>
+                            <i class="fas fa-user-alt"></i>
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="#logoutModal" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Cerrar sesión
+                                Cerrar Sesión
                             </a>
-                        </div>
-                    </li>
+                            <a class="dropdown-item" href="#Credencial" data-toggle="modal" data-target="#Credencial">
+                                <i class="fas fa-check fa-sm fa-fw mr-2 text-gray-500"></i>
+                                Credenciales
+                            </a>
 
+                        </div>
+
+                    </li>
                 </ul>
 
             </nav>
@@ -171,8 +151,9 @@ boolean verificador = request.getAttribute("verificador") != null ?
 
             </div>
             <!-- /.container-fluid -->
-            <form method="post" action="<%=request.getContextPath()%>/BodegaServlet?action=enviar" enctype="multipart/form-data">
-            <div class="container-fluid">
+            <form method="post" action="<%=request.getContextPath()%>/BodegaServlet?action=enviar"
+                  enctype="multipart/form-data">
+                <div class="container-fluid">
                     <div class="form-group ">
                         <div class="col-2 mb-3 mb-sm-1">
                             <h4 class="h4 mb-3 text-gray-800">Producto :</h4>
@@ -180,20 +161,22 @@ boolean verificador = request.getAttribute("verificador") != null ?
 
                         <div class="col-4 mb-3 mb-sm-1">
                             <input name="nombre" type="text" class="form-control form-control" id="exampleProducto"
-                                   placeholder="Producto..." id="nombre" <%=request.getParameter("nombre") != null?"value='"+request.getParameter("nombre")+"'":""%>
+                                   placeholder="Producto..."
+                                   id="nombre" <%=request.getParameter("nombre") != null?"value='"+request.getParameter("nombre")+"'":""%>
                                    required>
                         </div>
                     </div>
 
-                    <div class="input" >
+                    <div class="input">
                         <div class="col-2 mb-3 mb-sm-1">
                             <h4 class="h4 mb-3 text-gray-800">Descripción :</h4>
                         </div>
                     </div>
                     <div class="input-group col-10 mb-3">
-                                    <input name="descrip" class="col-5 form-control" aria-label="With textarea"
-                                              placeholder="Descripción..." id="descrip" <%=request.getParameter("descrip") != null?"value='"+request.getParameter("descrip")+"'":""%>
-                                              required>
+                        <input name="descrip" class="col-5 form-control" aria-label="With textarea"
+                               placeholder="Descripción..."
+                               id="descrip" <%=request.getParameter("descrip") != null?"value='"+request.getParameter("descrip")+"'":""%>
+                               required>
                     </div>
 
                     <div class="form-group">
@@ -202,8 +185,11 @@ boolean verificador = request.getAttribute("verificador") != null ?
                         </div>
                     </div>
                     <div class="input-group col-3 mb-3">
-                        <input  name="cant" type="number" class="form-control <%=verificador2?"":"is-invalid"%>" placeholder="Cantidad..."
-                               aria-label="Cantidad..." aria-describedby="basic-addon2" id="cant" <%=request.getParameter("cant") != null?"value='"+request.getParameter("cant")+"'":""%> aria-label="Precio" aria-describedby="validationServer04Feedback" required>
+                        <input name="cant" type="number" class="form-control <%=verificador2?"":"is-invalid"%>"
+                               placeholder="Cantidad..."
+                               aria-label="Cantidad..." aria-describedby="basic-addon2"
+                               id="cant" <%=request.getParameter("cant") != null?"value='"+request.getParameter("cant")+"'":""%>
+                               aria-label="Precio" aria-describedby="validationServer04Feedback" required>
                         <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2">uni.</span>
                         </div>
@@ -221,7 +207,9 @@ boolean verificador = request.getAttribute("verificador") != null ?
                         <div class="input-group-prepend">
                             <span class="input-group-text">S/.</span>
                         </div>
-                        <input name="precio" type="text" class="form-control <%=verificador?"":"is-invalid"%>" aria-label="Precio"<%=request.getParameter("precio") != null?"value='"+request.getParameter("precio")+"'":""%> aria-describedby="validationServer03Feedback" required>
+                        <input name="precio" type="text" class="form-control <%=verificador?"":"is-invalid"%>"
+                               aria-label="Precio"<%=request.getParameter("precio") != null?"value='"+request.getParameter("precio")+"'":""%>
+                               aria-describedby="validationServer03Feedback" required>
                         <div id="validationServer03Feedback" class="invalid-feedback">
                             Debe ser un número
                         </div>
@@ -238,8 +226,10 @@ boolean verificador = request.getAttribute("verificador") != null ?
                         <div class="input-group-append">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary" data-toggle="modal" href="<%=request.getContextPath()%>/BodegaServlet?action=search">Registrar
-                        producto</button>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal"
+                            href="<%=request.getContextPath()%>/BodegaServlet?action=search">Registrar
+                        producto
+                    </button>
                     <div class="modal fade" id="RegistroExitoso" tabindex="-1" role="dialog"
                          aria-labelledby="exampleModalLabel"
                          aria-hidden="true">
@@ -259,14 +249,15 @@ boolean verificador = request.getAttribute("verificador") != null ?
                             </div>
                         </div>
                     </div>
-                    <a class="btn btn-group-toggle"  href="<%=request.getContextPath()%>/BodegaServlet" role="button">Cancelar</a>
+                    <a class="btn btn-group-toggle" href="<%=request.getContextPath()%>/BodegaServlet" role="button">Cancelar</a>
                     <div class="modal fade" id="CancelarRegistro" tabindex="-1" role="dialog"
                          aria-labelledby="exampleModalLabel"
                          aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title text-center" id="exampleModalCancelarRegistro" data-dismiss="modal">Cancelar</h5>
+                                    <h5 class="modal-title text-center" id="exampleModalCancelarRegistro"
+                                        data-dismiss="modal">Cancelar</h5>
                                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">×</span>
                                     </button>
@@ -280,7 +271,7 @@ boolean verificador = request.getAttribute("verificador") != null ?
                         </div>
                     </div>
 
-            </div>
+                </div>
             </form>
         </div>
         <!-- End of Main Content -->
@@ -299,7 +290,8 @@ boolean verificador = request.getAttribute("verificador") != null ?
 
 <!-- Logout Modal-->
 <!-- Alerta cierre sesion-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -311,7 +303,30 @@ boolean verificador = request.getAttribute("verificador") != null ?
             <div class="modal-body">Usted esta a punto de salir ¿Desea continuar?</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=login">Cerrar Sesión</a>
+                <a class="btn btn-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=login">Cerrar
+                    Sesión</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="Credencial" tabindex="-1" role="dialog" aria-labelledby="exampleCredencial"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleCredencial">Credenciales de Bodega</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"><%="Nombre: "+bodega.getNombre()%></div>
+            <div class="modal-body"><%="RUC: "+bodega.getRuc()%></div>
+            <div class="modal-body"><%="Correo: "+bodega.getCorreo()%></div>
+            <div class="modal-body"><%="Direccion: "+bodega.getDireccion()%></div>
+            <div class="modal-body"><%="Distrito: "+bodega.getDistrito()%></div>
+            <div class="modal-body"><%="Valoracion: "+bodega.getValoracion()%></div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">OK</button>
             </div>
         </div>
     </div>
