@@ -1,6 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="bodega" scope="request" type="Beans.Bodega"/>
 <%
+    boolean imagen = request.getAttribute("imagen") != null ?
+            ((boolean) request.getAttribute("imagen")) : true;
+%>
+<%
     boolean verificador = request.getAttribute("verificador") != null ?
             ((boolean) request.getAttribute("verificador")) : true;
 %>
@@ -229,7 +233,8 @@
                                                             <input name="precio" type="text" id="precio"
                                                                    placeholder="Precio unitario..."
                                                                    class="form-control <%=verificador?"":"is-invalid"%>"
-                                                                   aria-label="Precio"<%=request.getParameter("precio") != null?"value='"+request.getParameter("precio")+"'":""%>
+                                                                   aria-label="Precio"
+                                                                <%=request.getParameter("precio") != null?"value='"+request.getParameter("precio")+"'":""%>
                                                                    aria-describedby="validationServer03Feedback">
                                                             <div id="validationServer03Feedback"
                                                                  class="invalid-feedback">
@@ -242,30 +247,18 @@
                                                     <div class="col-md-10 mb-4 ml-5">
                                                         <label for="imagen">Imagen referencial:</label>
                                                         <div class="input-group">
-                                                            <input type="file" name="fileFoto"
-                                                                   class="form-control <%=errorImage?"":"is-invalid"%>"
+                                                            <input type="file" name="fileFoto" class="form-control <%=imagen?"":"is-invalid"%>"
                                                                    id="imagen"
                                                                    placeholder="Recipient's username"
-                                                                   aria-label="Recipient's username"
-                                                                   aria-describedby="validationServer07Feedback">
-                                                            <div id="validationServer07Feedback"
+                                                                   aria-label="imagen"
+                                                                <%=request.getParameter("fileFoto") != null?"value='"+request.getParameter("fileFoto")+"'":""%>
+                                                                   aria-describedby="validationFoto">
+                                                            <div id="validationFoto"
                                                                  class="invalid-feedback">
                                                                 Debe subir una imagen
                                                             </div>
                                                             <div class="input-group-append">
                                                             </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                                                        </div>
-                                                        <div class="custom-file">
-                                                            <input type="file" class="custom-file-input" id="inputGroupFile01"
-                                                                   placeholder="Recipient's username"
-                                                                   aria-describedby="inputGroupFileAddon01">
-                                                            <label class="custom-file-label" for="inputGroupFile01"></label>
                                                         </div>
                                                     </div>
 
