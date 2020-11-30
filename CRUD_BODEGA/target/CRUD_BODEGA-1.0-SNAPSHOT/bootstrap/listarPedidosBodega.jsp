@@ -27,6 +27,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
+        <link rel="shortcut icon" href="<%=request.getContextPath()%>/bootstrap/img/icono_shop.ico" type="image/x-icon">
 
         <title>Pedidos</title>
 
@@ -240,21 +241,21 @@
                                         <%}else{%>
                                         <td>
                                             <a data-toggle = "modal" style = "color: #dce3f9"
-                                               class="btn btn-danger btn-circle" >
+                                               class="btn btn-dark btn-circle" >
                                                 <i class="fas fa-times" ></i >
                                             </a >
                                         </td >
                                         <%}}else{%>
                                         <td>
 
-                                            <button id="btn1" href="#" class="btn btn-success btn-circle">
+                                            <button id="btn1" href="#" class="btn btn-dark btn-circle">
                                                 <i class="fas fa-check"></i>
                                             </button>
                                         </td>
 
                                         <td>
                                             <a data-toggle = "modal" style = "color: #dce3f9"
-                                               class="btn btn-danger btn-circle" >
+                                               class="btn btn-dark btn-circle" >
                                                 <i class="fas fa-times" ></i >
                                             </a >
                                         </td >
