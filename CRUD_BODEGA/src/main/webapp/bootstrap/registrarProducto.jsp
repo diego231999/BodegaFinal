@@ -100,8 +100,8 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed text-lg-left" href="#logoutModal" data-toggle="modal"
                        data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        <span>Cerrar Sesión</span>
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Cerrar sesión</span>
                     </a>
                 </li>
 

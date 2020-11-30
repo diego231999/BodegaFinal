@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DaoProducto extends DaoBase{
+public class DaoProducto extends DaoBase {
     public void guardarProducto(String nombre, String descripcion, int cantidad, double precio, int contador, String ruc, InputStream foto) {
         DaoProducto dp = new DaoProducto();
         String codigo_mayor = dp.obtenerMayorCodigo();
@@ -56,37 +56,36 @@ public class DaoProducto extends DaoBase{
         }
     }
 
-    public int obtenerTamanioListaProducto(String ruc,String text) {
+    public int obtenerTamanioListaProducto(String ruc, String text) {
         ArrayList<Producto> lista = new ArrayList<>();
         String sql1 = "SELECT idProducto,nombreProducto, descripcion,cantidad,precio FROM producto,bodega " +
                 " where bodega.ruc=? and producto.bodega_ruc=? and producto.borrado='0'  and upper(nombreProducto) " +
                 "like upper(?)";
-        String sql2="select idProducto,nombreProducto, descripcion,cantidad,precio from bodega,producto where bodega.ruc=?" +
+        String sql2 = "select idProducto,nombreProducto, descripcion,cantidad,precio from bodega,producto where bodega.ruc=?" +
                 "and producto.bodega_ruc= ? and producto.borrado='0'";
         String sql;
 
-        if(text==null){
-            sql=sql2;
+        if (text == null) {
+            sql = sql2;
 
-        }else {
-            sql=sql1;
+        } else {
+            sql = sql1;
 
         }
         try (Connection conn = this.getConection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);)
-              {
-                  ResultSet rs;
-                  if (sql==sql1){
-                      pstmt.setString(3,"%"+text+"%");
-                      pstmt.setString(1,ruc);
-                      pstmt.setString(2,ruc);
-                      pstmt.executeQuery();
-                      rs= pstmt.executeQuery();}
-                  else {
-                      pstmt.setString(1,ruc);
-                      pstmt.setString(2,ruc);
-                      rs = pstmt.executeQuery();
-                  }
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            ResultSet rs;
+            if (sql == sql1) {
+                pstmt.setString(3, "%" + text + "%");
+                pstmt.setString(1, ruc);
+                pstmt.setString(2, ruc);
+                pstmt.executeQuery();
+                rs = pstmt.executeQuery();
+            } else {
+                pstmt.setString(1, ruc);
+                pstmt.setString(2, ruc);
+                rs = pstmt.executeQuery();
+            }
 
             while (rs.next()) {
                 Producto p = new Producto();
@@ -108,16 +107,16 @@ public class DaoProducto extends DaoBase{
     public ArrayList<Producto> obtenerListaProductos(String ruc, int pagina) {
         ArrayList<Producto> listaProductos = new ArrayList<>();
 
-        String sql="select idProducto,nombreProducto, descripcion,cantidad,precio from bodega,producto where bodega.ruc=?" +
-                " and producto.bodega_ruc=? and producto.borrado='0' limit " + ((10 * pagina ) - 10) + ",10;";
+        String sql = "select idProducto,nombreProducto, descripcion,cantidad,precio from bodega,producto where bodega.ruc=?" +
+                " and producto.bodega_ruc=? and producto.borrado='0' limit " + ((10 * pagina) - 10) + ",10;";
 
 
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 
-            pstmt.setString(1,ruc);
-            pstmt.setString(2,ruc);
+            pstmt.setString(1, ruc);
+            pstmt.setString(2, ruc);
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -130,7 +129,7 @@ public class DaoProducto extends DaoBase{
 
                 listaProductos.add(p);
             }
-        } catch ( SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         /*try (Connection conn = DriverManager.getConnection(url, user, pass);
@@ -172,7 +171,7 @@ public class DaoProducto extends DaoBase{
                 p.setPrecio(rs.getDouble(5));
                 p.setFotoProducto(rs.getBinaryStream(6));
             }
-        } catch ( SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return p;
@@ -202,7 +201,7 @@ public class DaoProducto extends DaoBase{
             while ((i = bufferedInputStream.read()) != -1) {
                 bufferedOutputStream.write(i);
             }
-        } catch ( SQLException | IOException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -277,8 +276,8 @@ public class DaoProducto extends DaoBase{
         }
     }
 
-    public Bodega DatosBodega(String ruc){
-        Bodega bodega =new Bodega();
+    public Bodega DatosBodega(String ruc) {
+        Bodega bodega = new Bodega();
         try {
 
             Connection conn = this.getConection();
@@ -301,19 +300,20 @@ public class DaoProducto extends DaoBase{
         }
         return bodega;
     }
-    public ArrayList<Producto> buscarProducto(String buscar, int pagina,String ruc){
+
+    public ArrayList<Producto> buscarProducto(String buscar, int pagina, String ruc) {
         ArrayList<Producto> productos = new ArrayList<>();
-        String sql="SELECT idProducto,nombreProducto, descripcion,cantidad,precio FROM producto,bodega " +
-            " where bodega.ruc=? and producto.bodega_ruc=? and producto.borrado='0'  and upper(nombreProducto) " +
-            "like upper(?)  limit " + ((10 * pagina) - 10) + ",10;";
+        String sql = "SELECT idProducto,nombreProducto, descripcion,cantidad,precio FROM producto,bodega " +
+                " where bodega.ruc=? and producto.bodega_ruc=? and producto.borrado='0'  and upper(nombreProducto) " +
+                "like upper(?)  limit " + ((10 * pagina) - 10) + ",10;";
         System.out.println(sql);
         //String sql="SELECT idProducto,nombreProducto, descripcion,cantidad,precio FROM producto where upper(nombreProducto) like upper(?) and bodega_ruc=? and producto.borrado='0'";
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1,ruc);
-            pstmt.setString(2,ruc);
-            pstmt.setString(3,"%"+buscar+"%");
+            pstmt.setString(1, ruc);
+            pstmt.setString(2, ruc);
+            pstmt.setString(3, "%" + buscar + "%");
             pstmt.executeQuery();
             System.out.println(buscar);
             ResultSet rs = pstmt.executeQuery();
@@ -327,9 +327,9 @@ public class DaoProducto extends DaoBase{
 
                 productos.add(p);
             }
-        } catch ( SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return productos;
     }
-    }
+}
