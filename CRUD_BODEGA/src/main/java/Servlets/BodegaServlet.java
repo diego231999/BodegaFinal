@@ -85,17 +85,18 @@ public class BodegaServlet extends HttpServlet {
                 }
 
                 Part part=request.getPart("fileFoto");
-                boolean recibe= true;
+
                 InputStream inputStream=part.getInputStream();
 
                 try (InputStream input = part.getInputStream()) {
                     try {
                         ImageIO.read(input).toString();
+
                         // It's an image (only BMP, GIF, JPG and PNG are recognized).
-                    } catch (Exception e) {
+                    } catch (Exception  e) {
                         System.out.println("mal");
-                        part=null;
-                        recibe=false;
+
+                        formValidImage=false;
                     }
                 }
 
@@ -121,7 +122,8 @@ public class BodegaServlet extends HttpServlet {
                 } else {
                     request.setAttribute("errorNombre", formValidNameB);
                     request.setAttribute("errorNombreD", formValidNameD);
-                    request.setAttribute("imagen", recibe);
+                    //request.setAttribute("imagen", recibe);
+                    request.setAttribute("errorImage", formValidImage);
                     request.setAttribute("verificador", verificador);
                     request.setAttribute("verificador2", verificador2);
                     request.setAttribute("bodega",bodega);
