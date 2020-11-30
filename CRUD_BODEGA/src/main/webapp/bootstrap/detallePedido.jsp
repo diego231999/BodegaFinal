@@ -25,7 +25,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/bootstrap/img/icono_shop.ico" type="image/x-icon">
     <title>Detalle Pedido</title>
 
     <link href="bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -114,7 +114,7 @@
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-gradient-primary topbar mb-4 static-top shadow">
-                <h1 class="text-right h3 mb-1 text-light"><strong><strong>MODIFICAR PRODUCTO</strong></strong></h1>
+                <h1 class="text-right h3 mb-1 text-light"><strong><strong>DETALLE DE PEDIDO</strong></strong></h1>
                 <!-- Sidebar Toggle (Topbar) -->
                 <form class="form-inline">
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -135,7 +135,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                             <a class="dropdown-item" href="#Credencial" data-toggle="modal" data-target="#Credencial">
+                            <a class="dropdown-item" href="#Credencial" data-toggle="modal" data-target="#Credencial">
                                 <i class="fas fa-check fa-sm fa-fw mr-2 text-gray-500"></i>
                                 Credenciales
                             </a>
@@ -151,22 +151,34 @@
             <!-- Begin Page Content -->
             <div class="container-fluid content">
                 <!-- DataTales Example -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <table class="table">
-                            <th><h6 class="m-0 font-weight-bold text-primary">
-                                <b>Estado:</b> <%=" " + pedidos.getEstado()%>
-                            </h6></th>
-                            <th><h6 class="m-0 font-weight-bold text-primary">
-                                <b>Cliente:</b> <%=" " + pedidos.getClienteDNI()%>
-                            </h6></th>
-                            <th><h6 class="m-0 font-weight-bold text-primary">
-                                <b>Distrito:</b> <%=" " + pedidos.getNombreDistrito()%>
-                            </h6></th>
+                <div class="card shadow mb-4 ">
+                    <div class="card-header bg-primary">
+                        <table class="bg-primary" width="100%" cellspacing="0">
+                            <td >
+                                <ul class="list-group col-10 bg-primary">
+                                    <li class="text-light bg-primary list-group-item d-flex justify-content-between align-items-center">
+                                        <h5><b>Pedido</b></h5>
+                                        <span class="text-light "><h6><%=pedidos.getCodigoPedido()%></h6></span>
+                                    </li>
+                                    <li class="text-light bg-primary list-group-item d-flex justify-content-between align-items-center">
+                                        <h5><b>Estado</b></h5>
+                                        <span class="text-light"><h6><%=pedidos.getEstado()%></h6></span>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="list-group col-10 bg-primary">
+                                    <li class="text-light bg-primary list-group-item d-flex justify-content-between align-items-center">
+                                        <h5><b>Cliente DNI</b></h5>
+                                        <span class="text-light"><h6><%=pedidos.getClienteDNI()%></h6></span>
+                                    </li>
+                                    <li class="text-light bg-primary list-group-item d-flex justify-content-between align-items-center">
+                                        <h5><b>Distrito</b></h5>
+                                        <span class="text-light "><h6><%=pedidos.getNombreDistrito()%></h6></span>
+                                    </li>
+                                </ul>
+                            </td>
                         </table>
-                        <h6 class="m-0 font-weight-bold text-primary"><b>Productos del
-                            pedido: </b><%="  " + " " + pedidos.getCodigoPedido()%>
-                        </h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
