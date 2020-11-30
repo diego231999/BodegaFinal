@@ -242,7 +242,8 @@
                                                     <div class="col-md-10 mb-4 ml-5">
                                                         <label for="imagen">Imagen referencial:</label>
                                                         <div class="input-group">
-                                                            <input type="file" name="fileFoto" class="form-control <%=errorImage?"":"is-invalid"%>"
+                                                            <input type="file" name="fileFoto"
+                                                                   class="form-control <%=errorImage?"":"is-invalid"%>"
                                                                    id="imagen"
                                                                    placeholder="Recipient's username"
                                                                    aria-label="Recipient's username"
@@ -253,6 +254,18 @@
                                                             </div>
                                                             <div class="input-group-append">
                                                             </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                                        </div>
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                                                   placeholder="Recipient's username"
+                                                                   aria-describedby="inputGroupFileAddon01">
+                                                            <label class="custom-file-label" for="inputGroupFile01"></label>
                                                         </div>
                                                     </div>
 

@@ -142,8 +142,7 @@
                     <!-- Begin Page Content -->
                     <div class='container-fluid'>
                         <div class="card shadow mb-4">
-                            <div class="p-3  bg-primary text-white"
-                                 style="text-align:center">
+                            <div class="p-3  bg-primary text-white" style="text-align:center">
                                 <h3 class="h3 font-weight-bold  text-white text-xl-center">LISTA DE PEDIDOS</h3>
                             </div>
                             <div class="card-body">
