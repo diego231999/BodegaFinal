@@ -1,9 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="bodega" scope="request" type="Beans.Bodega"/>
-<%
-    boolean imagen = request.getAttribute("imagen") != null ?
-            ((boolean) request.getAttribute("imagen")) : true;
-%>
+
 <%
     boolean verificador = request.getAttribute("verificador") != null ?
             ((boolean) request.getAttribute("verificador")) : true;
