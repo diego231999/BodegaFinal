@@ -64,6 +64,7 @@ public class DaoProducto extends DaoBase {
         String sql2 = "select idProducto,nombreProducto, descripcion,cantidad,precio from bodega,producto where bodega.ruc=?" +
                 "and producto.bodega_ruc= ? and producto.borrado='0'";
         String sql;
+        ResultSet rs=null;
 
         if (text == null) {
             sql = sql2;
@@ -74,7 +75,7 @@ public class DaoProducto extends DaoBase {
         }
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql);) {
-            ResultSet rs;
+
             if (sql == sql1) {
                 pstmt.setString(3, "%" + text + "%");
                 pstmt.setString(1, ruc);
@@ -100,6 +101,14 @@ public class DaoProducto extends DaoBase {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally{
+            try{
+                if(rs!=null){
+                    rs.close();
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
         return lista.size();
     }
@@ -118,16 +127,18 @@ public class DaoProducto extends DaoBase {
             pstmt.setString(1, ruc);
             pstmt.setString(2, ruc);
 
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                Producto p = new Producto();
-                p.setId(rs.getString(1));
-                p.setNombre(rs.getString(2));
-                p.setDescripcion(rs.getString(3));
-                p.setCantidad(rs.getInt(4));
-                p.setPrecio(rs.getDouble(5));
+            try(ResultSet rs = pstmt.executeQuery()) {
 
-                listaProductos.add(p);
+                while (rs.next()) {
+                    Producto p = new Producto();
+                    p.setId(rs.getString(1));
+                    p.setNombre(rs.getString(2));
+                    p.setDescripcion(rs.getString(3));
+                    p.setCantidad(rs.getInt(4));
+                    p.setPrecio(rs.getDouble(5));
+
+                    listaProductos.add(p);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -157,19 +168,20 @@ public class DaoProducto extends DaoBase {
         Producto p = new Producto();
         String sql = "select idProducto,nombreProducto, descripcion,cantidad,precio, foto from producto where idProducto=?;";
 
-        try (Connection conn = this.getConection()) {
-
-            PreparedStatement pstmt = conn.prepareStatement(sql);
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setString(1, idproducto);
-            ResultSet rs = pstmt.executeQuery();
 
-            if (rs.next()) {
-                p.setId(rs.getString(1));
-                p.setNombre(rs.getString(2));
-                p.setDescripcion(rs.getString(3));
-                p.setCantidad(rs.getInt(4));
-                p.setPrecio(rs.getDouble(5));
-                p.setFotoProducto(rs.getBinaryStream(6));
+            try(ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    p.setId(rs.getString(1));
+                    p.setNombre(rs.getString(2));
+                    p.setDescripcion(rs.getString(3));
+                    p.setCantidad(rs.getInt(4));
+                    p.setPrecio(rs.getDouble(5));
+                    p.setFotoProducto(rs.getBinaryStream(6));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -278,12 +290,9 @@ public class DaoProducto extends DaoBase {
 
     public Bodega DatosBodega(String ruc) {
         Bodega bodega = new Bodega();
-        try {
-
-            Connection conn = this.getConection();
-
-            String sql = "select * from bodega,distrito where ruc=? and bodega.idDistrito=distrito.idDistrito ;";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
+        String sql = "select * from bodega,distrito where ruc=? and bodega.idDistrito=distrito.idDistrito ;";
+        try( Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);){
             pstmt.setString(1, ruc);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
@@ -316,16 +325,18 @@ public class DaoProducto extends DaoBase {
             pstmt.setString(3, "%" + buscar + "%");
             pstmt.executeQuery();
             System.out.println(buscar);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                Producto p = new Producto();
-                p.setId(rs.getString(1));
-                p.setNombre(rs.getString(2));
-                p.setDescripcion(rs.getString(3));
-                p.setCantidad(rs.getInt(4));
-                p.setPrecio(rs.getDouble(5));
+            try(ResultSet rs = pstmt.executeQuery()) {
 
-                productos.add(p);
+                while (rs.next()) {
+                    Producto p = new Producto();
+                    p.setId(rs.getString(1));
+                    p.setNombre(rs.getString(2));
+                    p.setDescripcion(rs.getString(3));
+                    p.setCantidad(rs.getInt(4));
+                    p.setPrecio(rs.getDouble(5));
+
+                    productos.add(p);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
