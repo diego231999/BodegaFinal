@@ -61,6 +61,7 @@
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
+
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet">
@@ -74,7 +75,7 @@
             <a class="nav-link collapsed text-lg-left"
                href="<%=request.getContextPath()%>/BodegaServlet?action=registrar">
                 <i class="fas fa-plus"></i>
-                <span>Registro producto</span>
+                <span>Registrar producto</span>
             </a>
         </li>
 
@@ -88,7 +89,14 @@
         </li>
 
         <!-- Divider -->
-        <hr class="sidebar-divider">
+        <hr class="sidebar-divider my-0">
+        <li class="nav-item">
+            <a class="nav-link collapsed text-lg-left" href="#logoutModal" data-toggle="modal"
+               data-target="#logoutModal">
+                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                <span>Cerrar Sesión</span>
+            </a>
+        </li>
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
@@ -127,11 +135,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#logoutModal" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Cerrar Sesión
-                            </a>
-                            <a class="dropdown-item" href="#Credencial" data-toggle="modal" data-target="#Credencial">
+                             <a class="dropdown-item" href="#Credencial" data-toggle="modal" data-target="#Credencial">
                                 <i class="fas fa-check fa-sm fa-fw mr-2 text-gray-500"></i>
                                 Credenciales
                             </a>
