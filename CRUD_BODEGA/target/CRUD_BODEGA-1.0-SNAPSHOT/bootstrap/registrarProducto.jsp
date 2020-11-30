@@ -31,7 +31,7 @@
         <meta name="author" content="">
         <link rel="shortcut icon" href="<%=request.getContextPath()%>/bootstrap/img/icono_shop.ico" type="image/x-icon">
 
-        <title>Productos Cliente</title>
+        <title>Registrar producto</title>
 
         <!-- Custom fonts for this template-->
         <!-- Custom fonts for this template-->

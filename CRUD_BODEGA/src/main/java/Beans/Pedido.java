@@ -112,4 +112,16 @@ public class Pedido {
     public void setHoraRecojo(String horaRecojo) {
         this.horaRecojo = horaRecojo;
     }
+
+    public String getColorEstado() {
+        String colorestado="";
+        if (estado.equals("ENTREGADO")) {
+            colorestado= "#24c600";
+        } else if (estado.equals("PENDIENTE")) {
+            colorestado= "#003aff";
+        } else if (estado.equals("CANCELADO")) {
+            colorestado= "#ff3333";
+        }
+        return colorestado;
+    }
 }

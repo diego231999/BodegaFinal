@@ -191,7 +191,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <div style=text-align:center><%=pedidos.getEstado()%>
+                                            <div style="text-align:center; color:<%=pedidos.getColorEstado()%>"><%=pedidos.getEstado()%>
                                             </div>
                                         </td>
                                         <td>
