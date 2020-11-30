@@ -96,6 +96,7 @@ public class BodegaServlet extends HttpServlet {
                         System.out.println("mal");
                         part=null;
                         recibe=false;
+                        formValidImage=false;
                     }
                 }
 
@@ -121,6 +122,7 @@ public class BodegaServlet extends HttpServlet {
                 } else {
                     request.setAttribute("errorNombre", formValidNameB);
                     request.setAttribute("errorNombreD", formValidNameD);
+                    request.setAttribute("errorImage", formValidImage);
                     request.setAttribute("imagen", recibe);
                     request.setAttribute("verificador", verificador);
                     request.setAttribute("verificador2", verificador2);
