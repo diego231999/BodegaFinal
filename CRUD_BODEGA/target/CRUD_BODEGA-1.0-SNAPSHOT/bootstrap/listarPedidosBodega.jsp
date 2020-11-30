@@ -15,7 +15,7 @@
 <jsp:useBean id="bodega" type="Beans.Bodega" scope="request"/>
 <%
     ArrayList<Pedido> listaPedido = (ArrayList<Pedido>) request.getAttribute("listar_Pedidos");
-    int t=(int)request.getAttribute("tamanioP");
+    int t = (int) request.getAttribute("tamanioP");
 %>
 
 
@@ -33,12 +33,13 @@
 
         <!-- Custom fonts for this template-->
         <link href="bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+              rel="stylesheet">
 
         <!--Custom styles for this template -->
         <link type="text/css" href="css/sb-admin-2.min.css" rel="stylesheet">
 
-        <link href="bootstrap/css/sb-admin-2.min.css"rel="stylesheet" type="text/css"/>
+        <link href="bootstrap/css/sb-admin-2.min.css" rel="stylesheet" type="text/css"/>
 
         <!--Custom styles for this page-->
         <link href="bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -66,25 +67,24 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet">
                         <i class="fas fa-table"></i>
-                        <span>Productos</span>
-                    </a>
+                        <span>Productos</span></a>
                 </li>
-
 
                 <!-- Registrar Productos -->
 
                 <li class="nav-item">
-                    <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=registrar">
+                    <a class="nav-link collapsed text-lg-left"
+                       href="<%=request.getContextPath()%>/BodegaServlet?action=registrar">
                         <i class="fas fa-plus"></i>
                         <span>Registrar producto</span>
                     </a>
                 </li>
 
 
-
                 <!-- Ver Pedidos -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed text-lg-left" href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido">
+                    <a class="nav-link collapsed text-lg-left"
+                       href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido">
                         <i class="fas fa-eye"></i>
                         <span>Ver pedidos</span>
                     </a>
@@ -95,8 +95,8 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed text-lg-left" href="#logoutModal" data-toggle="modal"
                        data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        <span>Cerrar Sesión</span>
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Cerrar sesión</span>
                     </a>
                 </li>
                 <!-- Sidebar Toggler (Sidebar) -->
@@ -117,7 +117,7 @@
                     <nav class="navbar navbar-expand navbar-light bg-gradient-primary topbar mb-4 static-top shadow">
 
 
-                    <!-- Topbar Navbar -->
+                        <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
@@ -131,7 +131,8 @@
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
 
-                                    <a class="dropdown-item" href="#Credencial" data-toggle="modal" data-target="#Credencial">
+                                    <a class="dropdown-item" href="#Credencial" data-toggle="modal"
+                                       data-target="#Credencial">
                                         <i class="fas fa-check fa-sm fa-fw mr-2 text-gray-500"></i>
                                         Credenciales
                                     </a>
@@ -150,7 +151,8 @@
                                 <h3 class="h3 font-weight-bold  text-white text-xl-center">LISTA DE PEDIDOS</h3>
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered mb-0" width="100%" cellspacing="0" style="text-align:center">
+                                <table class="table table-bordered mb-0" width="100%" cellspacing="0"
+                                       style="text-align:center">
                                     <tr>
                                         <th>
                                             <div style=text-align:center>Código Pedido</div>
@@ -185,7 +187,7 @@
                                         <td><%=pedidos.getCodigoPedido()%>
                                         </td>
                                         <td>
-                                            <div><%=pedidos.getFechaEntrega()+" "+pedidos.getHoraRecojo()%>
+                                            <div><%=pedidos.getFechaEntrega() + " " + pedidos.getHoraRecojo()%>
                                             </div>
                                         </td>
                                         <td>
@@ -204,13 +206,13 @@
                                             <%
                                                 Date ahora = new Date();
                                                 SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
-                                                boolean bool=false;
-                                                String fechahoy=formateador.format(ahora);
-                                                String [] parte=fechahoy.split("-");
-                                                String fechapedido= pedidos.getFechaEntrega();
-                                                String [] parte2=fechapedido.split("-");
-                                                if ((Integer.parseInt(parte[2])>=Integer.parseInt(parte2[0]))&(Integer.parseInt(parte[1])>=Integer.parseInt(parte2[1]))&(Integer.parseInt(parte[0])>Integer.parseInt(parte2[2]))){
-                                                    bool=true;
+                                                boolean bool = false;
+                                                String fechahoy = formateador.format(ahora);
+                                                String[] parte = fechahoy.split("-");
+                                                String fechapedido = pedidos.getFechaEntrega();
+                                                String[] parte2 = fechapedido.split("-");
+                                                if ((Integer.parseInt(parte[2]) >= Integer.parseInt(parte2[0])) & (Integer.parseInt(parte[1]) >= Integer.parseInt(parte2[1])) & (Integer.parseInt(parte[0]) > Integer.parseInt(parte2[2]))) {
+                                                    bool = true;
                                             %>
                                             <%
                                                 }
@@ -218,46 +220,59 @@
 
                                             <!--Visualizar el detalle del pedido-->
 
-                                            <a href="<%=request.getContextPath()%>/BodegaServlet?action=detallePedido&idPedido=<%=pedidos.getCodigoPedido()%>" class="btn btn-info btn-circle align">
+                                            <a href="<%=request.getContextPath()%>/BodegaServlet?action=detallePedido&idPedido=<%=pedidos.getCodigoPedido()%>"
+                                               class="btn btn-info btn-circle align">
                                                 <i class="fas fa-eye"></i>
                                             </a>
 
                                         </td>
-                                        <% if (pedidos.getEstado().equalsIgnoreCase("pendiente")){ %>
+                                        <% if (pedidos.getEstado().equalsIgnoreCase("pendiente")) { %>
                                         <td>
 
-                                            <a href="<%=request.getContextPath()%>/BodegaServlet?action=entregarPedido&idPedido=<%=pedidos.getCodigoPedido()%>" onclick="return confirm('Esta seguro de que desea colocar el pedido en estado Entregado')"  style="color: #dce3f9" class="btn btn-success btn-circle align">
+                                            <a href="<%=request.getContextPath()%>/BodegaServlet?action=entregarPedido&idPedido=<%=pedidos.getCodigoPedido()%>"
+                                               onclick="return confirm('Esta seguro de que desea colocar el pedido en estado Entregado')"
+                                               style="color: #dce3f9" class="btn btn-success btn-circle align">
                                                 <i class="fas fa-check"></i>
                                             </a>
                                         </td>
                                         <% if (bool) {%>
                                         <td>
                                             <input type="hidden" id="codPedido" value="<%=pedidos.getCodigoPedido()%>">
-                                            <a id="btnCancelar" href="<%=request.getContextPath()%>/BodegaServlet?action=cancelarPedido&idPedido=<%=pedidos.getCodigoPedido()%>" onclick="return confirm('Esta seguro de que desea colocar el pedido en estado Cancelado')" class="btn btn-danger btn-circle align">
+                                            <a id="btnCancelar"
+                                               href="<%=request.getContextPath()%>/BodegaServlet?action=cancelarPedido&idPedido=<%=pedidos.getCodigoPedido()%>"
+                                               onclick="return confirm('Esta seguro de que desea colocar el pedido en estado Cancelado')"
+                                               class="btn btn-danger btn-circle align">
                                                 <i class="fas fa-times"></i>
                                             </a>
                                         </td>
-                                        <%}else{%>
+                                        <%} else {%>
                                         <td>
-                                            <a data-toggle = "modal" style = "color: #dce3f9"
-                                               class="btn btn-dark btn-circle" >
-                                                <i class="fas fa-times" ></i >
-                                            </a >
-                                        </td >
-                                        <%}}else{%>
+                                            <a data-toggle="modal" style="color: #dce3f9"
+                                               class="btn btn-dark btn-circle">
+                                                <i class="fas fa-times"></i>
+                                            </a>
+                                        </td>
+                                        <%
+                                            }
+                                        } else {
+                                        %>
                                         <td>
-
-                                            <button id="btn1" href="#" class="btn btn-dark btn-circle">
+                                            <a data-toggle="modal" style="color: #dce3f9"
+                                               class="btn btn-dark btn-circle">
                                                 <i class="fas fa-check"></i>
-                                            </button>
+                                            </a>
+
+                                            <!--   <button id="btn1" href="#" class="btn btn-dark btn-circle">
+                                                <i class="fas fa-check"></i>
+                                            </button>                                                           -->
                                         </td>
 
                                         <td>
-                                            <a data-toggle = "modal" style = "color: #dce3f9"
-                                               class="btn btn-dark btn-circle" >
-                                                <i class="fas fa-times" ></i >
-                                            </a >
-                                        </td >
+                                            <a data-toggle="modal" style="color: #dce3f9"
+                                               class="btn btn-dark btn-circle">
+                                                <i class="fas fa-times"></i>
+                                            </a>
+                                        </td>
                                         <%}%>
 
                                     </tr>
@@ -268,16 +283,18 @@
 
                                 </table>
                             </div>
-                            <nav  class="ml-4 mb-2" aria-label="Page navigation example">
+                            <nav class="ml-4 mb-2" aria-label="Page navigation example">
                                 <ul class="pagination">
                                     <%
-                                        int tamaño=(t/2);
-                                        if((t%2)!=0){
+                                        int tamaño = (t / 2);
+                                        if ((t % 2) != 0) {
                                             tamaño++;
                                         }
 
-                                        for(int i=1; i<=tamaño;i++){%>
-                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido&pag=<%=i%>"><%=i%></a></li>
+                                        for (int i = 1; i <= tamaño; i++) {%>
+                                    <li class="page-item"><a class="page-link"
+                                                             href="<%=request.getContextPath()%>/BodegaServlet?action=verPedido&pag=<%=i%>"><%=i%>
+                                    </a></li>
                                     <%
                                         }
                                     %>
@@ -296,7 +313,6 @@
             </a>
 
 
-
             <!-- Alerta cierre sesion-->
             <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
@@ -311,7 +327,8 @@
                         <div class="modal-body">Usted esta a punto de salir ¿Desea continuar?</div>
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                            <a class="btn btn-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=login">Cerrar Sesión</a>
+                            <a class="btn btn-primary" href="<%=request.getContextPath()%>/BodegaServlet?action=login">Cerrar
+                                Sesión</a>
                         </div>
                     </div>
                 </div>
@@ -370,7 +387,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.3.5/sweetalert2.all.min.js%22%3E"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="bootstrap/js/sweetAlert2/sweetalert2.all.min.js"></script>
-        <script src="bootstrap/js/modales.js" ></script>
+        <script src="bootstrap/js/modales.js"></script>
 
     </body>
 </html>
