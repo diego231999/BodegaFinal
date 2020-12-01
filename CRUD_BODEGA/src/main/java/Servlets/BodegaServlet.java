@@ -6,7 +6,7 @@ import Beans.Producto;
 import Daos.DaoPedido;
 import Daos.DaoProducto;
 import OtrasFunciones.Validaciones;
-import javafx.animation.ParallelTransition;
+
 
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;

@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="CRUD_BODEGA:war">
+    <output-path>$PROJECT_DIR$/CRUD_BODEGA/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>CRUD_BODEGA</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="CRUD_BODEGA-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="CRUD_BODEGA:war exploded" />
+    </root>
+  </artifact>
+</component>

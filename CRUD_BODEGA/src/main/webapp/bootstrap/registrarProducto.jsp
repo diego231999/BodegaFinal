@@ -172,10 +172,10 @@
                                             <form method="POST"
                                                   action="<%=request.getContextPath()%>/BodegaServlet?action=enviar"
                                                   enctype="multipart/form-data">
-                                                <div class="form-row justify-content-center">
+                                                <div class="form-row col-lg-">
 
 
-                                                    <div class="col-md-5 mb-4 ml-5">
+                                                    <div class="col-md-5 mb-4">
                                                         <label for="nombre">Producto:</label>
                                                         <input type="text"
                                                                class="form-control <%=errorNameB?"":"is-invalid"%>"
@@ -203,7 +203,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-5 mb-4 ml-5">
+                                                    <div class="col-md-5 mb-4">
                                                         <label for="cant">Cantidad:</label>
                                                         <div class="input-group">
                                                             <input name="cant" type="text"
@@ -244,10 +244,11 @@
                                                     </div>
 
 
-                                                    <div class="col-md-10 mb-4 ml-5">
+                                                    <div class="col-md-10 mb-0">
                                                         <label for="imagen">Imagen referencial:</label>
                                                         <div class="input-group">
-                                                            <input type="file" name="fileFoto" class="form-control <%=errorImage?"":"is-invalid"%>"
+                                                            <input type="file" name="fileFoto"
+                                                                   class="form-control <%=errorImage?"":"is-invalid"%>"
                                                                    id="imagen"
                                                                    placeholder="Recipient's username"
                                                                    aria-label="imagen"
@@ -261,6 +262,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
+                                                    <div class="col-md-10 mb-4">
+                                                    <label class="ui-state-error-text text-danger" id="photo_error" hidden></label>
+                                                    </div>
+
 
 
                                                     <button type="submit"
@@ -328,6 +334,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div><img id="image_preview" src="/bootstrap/img/previewimage.png" width="150" hidden>
+                                                </div>
+
                                             </form>
                                         </div>
                                     </div>
@@ -427,4 +437,31 @@
 
         </div>
     </body>
+    <script>$(document).ready(function () {
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image_preview').attr('src', e.target.result).removeAttr('hidden');
+                }
+
+                reader.readAsDataURL(input.files[0]);
+                console.log(input.files[0].name.split(".")[1])
+                let extensions = ['jpg', 'jpeg', 'png']
+                if (!(extensions.includes(input.files[0].name.split(".")[1]))) {
+                    $('#photo_error').text('Debe adjuntar archivos con extensión png, jpeg o jpg').removeAttr('hidden');
+
+                } else {
+                    $('#photo_error').attr('hidden', 'true');
+
+                }
+            }
+        }
+
+        $("#imagen").change(function () {
+            console.log("sdafefdgsagsagasdg");
+            readURL(this);
+        });
+    })</script>
 </html>
